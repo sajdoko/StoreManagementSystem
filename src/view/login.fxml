@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane alignment="center" hgap="10" styleClass="root" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.Login">
+<padding><Insets bottom="25" left="25" right="25" top="25" /></padding>
+
+<Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+
+<Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+<TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+<Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+
+<PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+<HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+   <Button onAction="#handleSubmitButtonAction" text="Login" />
+</HBox>
+
+<Text fx:id="actionTarget" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+<stylesheets>
+   <URL value="@../resources/css/Login.css" />
+</stylesheets>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+
+</GridPane>

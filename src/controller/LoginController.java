@@ -1,6 +1,6 @@
 package controller;
 
-import utils.ConnectionUtil;
+import app.utils.ConnectionUtil;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +17,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import javax.xml.soap.Text;
 
 public class LoginController implements Initializable {
     @FXML

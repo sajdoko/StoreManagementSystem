@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="scenebuilder-8.5.0-all">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/lib/scenebuilder-8.5.0-all.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

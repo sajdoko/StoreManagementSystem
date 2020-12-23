@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
-      prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.22" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="controller.LoginController">
-
-   <stylesheets>
-      <URL value="@../resources/css/login.css"/>
-   </stylesheets>
-   <AnchorPane VBox.vgrow="ALWAYS">
-      <Text id="welcome-text" layoutX="566.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome"
-            textAlignment="CENTER">
-         <font>
-            <Font size="36.0"/>
-         </font>
-      </Text>
-      <Text layoutX="390.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0"
-            text="Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero,non adipiscing dolor urna a orci. "
-            textAlignment="CENTER" wrappingWidth="500.0">
-         <font>
-            <Font size="18.0"/>
-         </font>
-      </Text>
-      <TextField fx:id="emailField" layoutX="516.0" layoutY="389.0" prefHeight="26.0" prefWidth="248.0" promptText=" username"/>
-      <PasswordField fx:id="passwordField" layoutX="516.0" layoutY="446.0" prefHeight="26.0" prefWidth="248.0"
-                     promptText="password"/>
-      <Button layoutX="516.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleSubmitButtonAction"
-              prefHeight="32.0" prefWidth="248.0" text="Login">
-         <font>
-            <Font size="15.0"/>
-         </font>
-      </Button>
-<!--      <Text fx:id="actionTarget" layoutX="628.0" layoutY="585.0" strokeType="OUTSIDE" strokeWidth="0.0"/>-->
-      <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="551.0" layoutY="132.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@../resources/img/sm-logo.png"/>
-      </ImageView>
-   </AnchorPane>
-</VBox>
+<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@../resources/css/login.css"
+           xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="controller.LoginController">
+   <BorderPane prefHeight="200.0" prefWidth="200.0">
+      <center>
+         <AnchorPane styleClass="root" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="546.0" layoutY="97.0" pickOnBounds="true"
+                       preserveRatio="true">
+               <Image url="@../resources/img/brand/sm-logo.png"/>
+            </ImageView>
+            <Text id="welcome-text" layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Welcome" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0"/>
+               </font>
+            </Text>
+            <Text layoutX="390.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                  text="Enter username and password to login:" textAlignment="CENTER" wrappingWidth="500.0">
+               <font>
+                  <Font size="18.0"/>
+               </font>
+            </Text>
+            <TextField fx:id="emailField" layoutX="523.0" layoutY="349.0" prefHeight="26.0" prefWidth="248.0"
+                       promptText=" username"/>
+            <PasswordField fx:id="passwordField" layoutX="523.0" layoutY="387.0" prefHeight="26.0" prefWidth="248.0"
+                           promptText="password"/>
+            <Button layoutX="523.0" layoutY="458.0" mnemonicParsing="false" onAction="#handleLoginButtonAction"
+                    prefHeight="32.0" prefWidth="248.0" text="Login">
+               <font>
+                  <Font size="15.0"/>
+               </font>
+            </Button>
+         </AnchorPane>
+      </center>
+   </BorderPane>
+</StackPane>

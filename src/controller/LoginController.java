@@ -1,6 +1,6 @@
 package controller;
 
-import app.utils.ConnectionUtil;
+import app.utils.MySqlConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,34 +24,16 @@ public class LoginController implements Initializable {
     @FXML
     public PasswordField passwordField;
 
-//    @FXML
-//    private Text actionTarget;
-
-//    @FXML protected void handleSubmitButtonAction(ActionEvent event) {
-//        System.out.println(usernameField.getText());
-//        if (usernameField.getText().trim().length() > 0 && passwordField.getText().trim().length() > 0) {
-//            actionTarget.setText("Credentials entered!");
-//        } else {
-//            actionTarget.setText("Enter credentials!");
-//        }
-//    }
-
     Stage dialogStage = new Stage();
     Scene scene;
 
-    Connection connection = ConnectionUtil.getConnection();
+    Connection connection = MySqlConnection.getConnection();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-//    public void FXMLDocumentController() {
-//        connection = ConnectionUtil.getConnection();
-//    }
-//
-
-
-    public void handleSubmitButtonAction(ActionEvent event){
-        String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
+    public void handleLoginButtonAction(ActionEvent event){
+        String email = emailField.getText();
+        String password = passwordField.getText();
 
         String sql = "SELECT * FROM users WHERE email = ? and password = ?";
 
@@ -60,13 +42,13 @@ public class LoginController implements Initializable {
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
-            if(!resultSet.next()){
-                infoBox("Please enter correct Email and Password", null, "Failed");
-            }else{
-//                infoBox("Login Successful",null,"Success" );
+            if (!resultSet.next()) {
+                alertBox("Please enter correct Email and Password", null, "Login Failed!");
+            } else {
                 Node node = (Node)event.getSource();
                 dialogStage = (Stage) node.getScene().getWindow();
                 dialogStage.close();
+
                 scene = new Scene(FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml")));
                 dialogStage.setScene(scene);
                 dialogStage.show();
@@ -79,7 +61,7 @@ public class LoginController implements Initializable {
     }
 
 
-    public static void infoBox(String infoMessage, String headerText, String title){
+    public static void alertBox(String infoMessage, String headerText, String title){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setContentText(infoMessage);
         alert.setTitle(title);

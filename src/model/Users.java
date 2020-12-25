@@ -1,25 +1,26 @@
 package model;
 
+import app.utils.MySqlConnection;
+import controller.UserSessionController;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Users {
 
     private long id;
-    private String name;
-    private String surname;
+    private String fullname;
     private String username;
     private String email;
     private String password;
     private int admin;
     private String status;
 
-    public Users(String name, String surname, String username, String email, String password, int admin, String status) {
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.admin = admin;
-        this.status = status;
-    }
+    Connection connection = MySqlConnection.getConnection();
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
 
     public long getId() {
         return id;
@@ -30,19 +31,11 @@ public class Users {
     }
 
     public String getName() {
-        return name;
+        return fullname;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setName(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getUsername() {
@@ -83,5 +76,23 @@ public class Users {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int logIn(String email, String password) throws SQLException {
+
+        String sql = "SELECT * FROM users WHERE email = ? and password = ?";
+
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, email);
+        preparedStatement.setString(2, password);
+        resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+
+            UserSessionController setSession = new UserSessionController(resultSet.getInt("id"), resultSet.getString("fullname"), resultSet.getString("username"), resultSet.getString("email"), resultSet.getInt("admin"), resultSet.getString("status"));
+
+            return resultSet.getInt("id");
+        } else {
+            return 0;
+        }
     }
 }

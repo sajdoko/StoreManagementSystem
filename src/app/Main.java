@@ -11,8 +11,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Parent root = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml"));
         primaryStage.setTitle("Store Manager");
         primaryStage.getIcons().add(new Image("/resources/img/brand/fav.png"));
         primaryStage.setScene(new Scene(root, 1280, 800));

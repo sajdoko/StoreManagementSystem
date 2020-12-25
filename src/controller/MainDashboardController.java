@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +24,9 @@ public class MainDashboardController implements Initializable {
     public Button btnSettings;
     @FXML
     private StackPane acContent;
+    @FXML
+    private Label lblUsrName;
+
 
     public void acMainOnMouseMove(MouseEvent mouseEvent) {
     }
@@ -99,5 +103,6 @@ public class MainDashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        lblUsrName.setText(UserSessionController.getUserFullName());
     }
 }

@@ -1,10 +1,15 @@
 package controller;
 
 import app.utils.MySqlConnection;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Users;
 
 public class LoginController implements Initializable {
     @FXML
@@ -27,39 +33,26 @@ public class LoginController implements Initializable {
     Stage dialogStage = new Stage();
     Scene scene;
 
-    Connection connection = MySqlConnection.getConnection();
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
-
-    public void handleLoginButtonAction(ActionEvent event){
+    public void handleLoginButtonAction(ActionEvent event) throws SQLException, IOException {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        String sql = "SELECT * FROM users WHERE email = ? and password = ?";
+        Users login = new Users();
+        int userId = login.logIn(email, password);
 
-        try{
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()) {
-                alertBox("Please enter correct Email and Password", null, "Login Failed!");
-            } else {
-                Node node = (Node)event.getSource();
-                dialogStage = (Stage) node.getScene().getWindow();
-                dialogStage.close();
+        if ( userId > 0) {
 
-                scene = new Scene(FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml")));
-                dialogStage.setScene(scene);
-                dialogStage.show();
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
+            Node node = (Node)event.getSource();
+            dialogStage = (Stage) node.getScene().getWindow();
+            dialogStage.close();
+            scene = new Scene(FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml")));
+            dialogStage.setScene(scene);
+            dialogStage.show();
+        } else {
+            alertBox("Please enter correct Email and Password", null, "Login Failed!");
         }
 
     }
-
 
     public static void alertBox(String infoMessage, String headerText, String title){
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -68,8 +61,6 @@ public class LoginController implements Initializable {
         alert.setHeaderText(headerText);
         alert.showAndWait();
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

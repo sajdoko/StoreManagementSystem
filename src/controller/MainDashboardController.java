@@ -1,19 +1,28 @@
 package controller;
 
+import com.mysql.jdbc.CacheAdapter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainDashboardController implements Initializable {
@@ -22,6 +31,7 @@ public class MainDashboardController implements Initializable {
     public Button btnCustomers;
     public Button btnOrders;
     public Button btnSettings;
+    public Button lblLogOut;
     @FXML
     private StackPane acContent;
     @FXML
@@ -97,7 +107,24 @@ public class MainDashboardController implements Initializable {
         acContent.getChildren().add(root);
     }
 
-    public void btnLogOut(ActionEvent actionEvent) {
+    public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText("Are you sure that you want to log out?");
+        alert.setTitle("Log Out?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            UserSessionController.cleanUserSession();
+            Stage dialogStage;
+            dialogStage = new Stage();
+            Node node = (Node) actionEvent.getSource();
+            dialogStage = (Stage) node.getScene().getWindow();
+            dialogStage.close();
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("../view/login.fxml")));
+            dialogStage.setScene(scene);
+            dialogStage.show();
+        }
     }
 
     @Override

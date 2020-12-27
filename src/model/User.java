@@ -1,14 +1,6 @@
 package model;
 
-import app.utils.MySqlConnection;
-import controller.UserSessionController;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class Users {
+public class User {
 
     private long id;
     private String fullname;
@@ -17,10 +9,6 @@ public class Users {
     private String password;
     private int admin;
     private String status;
-
-    Connection connection = MySqlConnection.getConnection();
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
 
     public long getId() {
         return id;
@@ -78,21 +66,4 @@ public class Users {
         this.status = status;
     }
 
-    public int logIn(String email, String password) throws SQLException {
-
-        String sql = "SELECT * FROM users WHERE email = ? and password = ?";
-
-        preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setString(1, email);
-        preparedStatement.setString(2, password);
-        resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-
-            UserSessionController setSession = new UserSessionController(resultSet.getInt("id"), resultSet.getString("fullname"), resultSet.getString("username"), resultSet.getString("email"), resultSet.getInt("admin"), resultSet.getString("status"));
-
-            return resultSet.getInt("id");
-        } else {
-            return 0;
-        }
-    }
 }

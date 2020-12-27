@@ -1,15 +1,9 @@
 package controller;
 
-import app.utils.MySqlConnection;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +16,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Users;
 
 public class LoginController implements Initializable {
     @FXML
@@ -37,9 +30,8 @@ public class LoginController implements Initializable {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        Users login = new Users();
-        int userId = login.logIn(email, password);
-
+        int userId = model.Datasource.getInstance().logIn(email, password);
+//        System.out.println(userId);
         if ( userId > 0) {
 
             Node node = (Node)event.getSource();

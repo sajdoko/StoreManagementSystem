@@ -1,33 +1,19 @@
 package model;
 
+import controller.UserSessionController;
+
+import java.sql.*;
 import java.util.Date;
 
-public class Products {
+public class Product {
 
     private long id;
-
     private String name;
-
     private String description;
-
     private double price;
-
     private int quantity;
-
     private String category;
 
-    private Date createdAt;
-
-    private Date updatedAt;
-
-    public Products(long id, String name, String description, double price, int quantity, String category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.category = category;
-    }
 
     public long getId() {
         return id;
@@ -77,19 +63,18 @@ public class Products {
         this.category = category;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    public String[] getAllProducts() {
+        String[] allProductsList = {};
+        String sql = "SELECT * FROM products";
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+//        preparedStatement = connection.prepareStatement(sql);
+//        resultSet = preparedStatement.executeQuery();
+//        if (resultSet.next()) {
+//            return allProductsList;
+//        } else {
+//            return allProductsList;
+//        }
+        return allProductsList;
     }
 }

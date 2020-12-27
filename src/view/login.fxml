@@ -5,15 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@../resources/css/login.css"
-           xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@resources/css/login.css"
+           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="controller.LoginController">
    <BorderPane prefHeight="200.0" prefWidth="200.0">
       <center>
          <AnchorPane styleClass="root" BorderPane.alignment="CENTER">
             <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="546.0" layoutY="97.0" pickOnBounds="true"
                        preserveRatio="true">
-               <Image url="@../resources/img/brand/sm-logo.png"/>
+               <Image url="@resources/img/brand/sm-logo.png"/>
             </ImageView>
             <Text id="welcome-text" layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0"
                   text="Welcome" textAlignment="CENTER">

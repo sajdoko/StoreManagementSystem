@@ -1,8 +1,5 @@
 package controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 //singleton design pattern
 public final class UserSessionController {
 

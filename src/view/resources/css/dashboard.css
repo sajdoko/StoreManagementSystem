@@ -4,15 +4,8 @@
     -fx-background-radius: 0px;
     -fx-text-fill: #4E4F52;
     -fx-background-color: #e5e5e5;
-    -fx-font-weight:700;
 }
 
-.menuButton:focused{
-    -fx-border-width: 0px 1px 0px 0px;
-    -fx-border-color: #4E4F52;
-    -fx-background-color: #f3f3f3;
-
-}
 .menuButton:hover{
     -fx-background-color: #f3f3f3;
     /*-fx-text-fill: white;*/
@@ -24,9 +17,11 @@
 #acDashBord{
     -fx-background-color:#e5e5e5;
 }
+
 .button-round-red {
-    -fx-background-color: linear-gradient(#ff5400, #be1d00);
-    -fx-background-radius: 30;
-    -fx-background-insets: 0;
+    -fx-background-color: #be1d00;
     -fx-text-fill: white;
+}
+.button-round-red:hover {
+    -fx-background-color: #8c1b01;
 }

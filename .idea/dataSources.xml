@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="store_manager@localhost" uuid="534598bd-e4f8-46a9-b6d1-db7e97343b6b">
-      <driver-ref>mariadb</driver-ref>
+    <data-source source="LOCAL" name="store_manager.sqlite" uuid="677b9279-9fda-4eaa-b6d6-b6c706dc0d6b">
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mariadb://localhost:3306/store_manager</jdbc-url>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\sajmi\OneDrive\Documents\GitHub\StoreManager\src\app\db\store_manager.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

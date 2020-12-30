@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.Datasource;
 
 public class Main extends Application {
 
@@ -23,7 +24,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        if(!model.Datasource.getInstance().open()) {
+        if(!Datasource.getInstance().open()) {
             System.out.println("FATAL ERROR: Couldn't connect to database");
             Platform.exit();
         }
@@ -32,7 +33,7 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        model.Datasource.getInstance().close();
+        Datasource.getInstance().close();
     }
 
 

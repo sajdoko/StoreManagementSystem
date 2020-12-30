@@ -1,6 +1,12 @@
 package model;
 
 import controller.UserSessionController;
+import controller.pages.ProductsController;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +18,28 @@ public class Datasource {
 
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:src\\app\\db\\" + DB_NAME;
 
+    public static final String TABLE_PRODUCTS = "products";
+    public static final String COLUMN_PRODUCTS_ID = "id";
+    public static final String COLUMN_PRODUCTS_NAME = "name";
+    public static final String COLUMN_PRODUCTS_DESCRIPTION = "description";
+    public static final String COLUMN_PRODUCTS_PRICE = "price";
+    public static final String COLUMN_PRODUCTS_QUANTITY = "quantity";
+    public static final String COLUMN_PRODUCTS_CATEGORY_ID = "category_id";
+
+    public static final String TABLE_CATEGORIES = "categories";
+    public static final String COLUMN_CATEGORIES_ID = "id";
+    public static final String COLUMN_CATEGORIES_NAME = "name";
+    public static final String COLUMN_CATEGORIES_DESCRIPTION = "description";
+
+    public static final String TABLE_ORDERS = "orders";
+    public static final String COLUMN_ORDERS_ID = "id";
+    public static final String COLUMN_ORDERS_PRODUCT_ID = "product_id";
+    public static final String COLUMN_ORDERS_USER_ID = "user_id";
+    public static final String COLUMN_ORDERS_SHIPPING_ADDRESS = "shipping_address";
+    public static final String COLUMN_ORDERS_ORDER_EMAIL = "order_email";
+    public static final String COLUMN_ORDERS_ORDER_DATE = "order_date";
+    public static final String COLUMN_ORDERS_ORDER_STATUS = "order_status";
+
     public static final String TABLE_USERS = "users";
     public static final String COLUMN_USERS_ID = "id";
     public static final String COLUMN_USERS_FULLNAME = "fullname";
@@ -20,27 +48,6 @@ public class Datasource {
     public static final String COLUMN_USERS_PASSWORD = "password";
     public static final String COLUMN_USERS_ADMIN = "admin";
     public static final String COLUMN_USERS_STATUS = "status";
-    public static final int INDEX_USERS_ID = 1;
-    public static final int INDEX_USERS_FULLNAME = 2;
-    public static final int INDEX_USERS_USERNAME = 3;
-    public static final int INDEX_USERS_EMAIL = 4;
-    public static final int INDEX_USERS_PASSWORD = 5;
-    public static final int INDEX_USERS_ADMIN = 6;
-    public static final int INDEX_USERS_STATUS = 7;
-
-    public static final String TABLE_PRODUCTS = "products";
-    public static final String COLUMN_PRODUCTS_ID = "id";
-    public static final String COLUMN_PRODUCTS_NAME = "name";
-    public static final String COLUMN_PRODUCTS_DESCRIPTION = "description";
-    public static final String COLUMN_PRODUCTS_PRICE = "price";
-    public static final String COLUMN_PRODUCTS_QUANTITY = "quantity";
-    public static final String COLUMN_PRODUCTS_CATEGORY = "category";
-    public static final int INDEX_PRODUCTS_ID = 1;
-    public static final int INDEX_PRODUCTS_NAME = 2;
-    public static final int INDEX_PRODUCTS_DESCRIPTION = 3;
-    public static final int INDEX_PRODUCTS_PRICE = 4;
-    public static final int INDEX_PRODUCTS_QUANTITY = 5;
-    public static final int INDEX_PRODUCTS_CATEGORY = 6;
 
     public static final int ORDER_BY_NONE = 1;
     public static final int ORDER_BY_ASC = 2;
@@ -92,15 +99,15 @@ public class Datasource {
         if (results.next()) {
 
             new UserSessionController(
-                    results.getInt(INDEX_USERS_ID),
-                    results.getString(INDEX_USERS_FULLNAME),
-                    results.getString(INDEX_USERS_USERNAME),
-                    results.getString(INDEX_USERS_EMAIL),
-                    results.getInt(INDEX_USERS_ADMIN),
-                    results.getString(INDEX_USERS_STATUS)
+                    results.getInt(1),
+                    results.getString(2),
+                    results.getString(3),
+                    results.getString(4),
+                    results.getInt(5),
+                    results.getString(6)
             );
 
-            return results.getInt(INDEX_USERS_ID);
+            return results.getInt(1);
         } else {
             return 0;
         }
@@ -109,30 +116,45 @@ public class Datasource {
 
     public List<Product> getAllProducts(int sortOrder) {
 
-        StringBuilder sb = new StringBuilder("SELECT * FROM ");
-        sb.append(TABLE_PRODUCTS);
+        StringBuilder queryProducts = new StringBuilder("SELECT " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_PRICE + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_QUANTITY + ", " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_NAME + ", " +
+                " (SELECT COUNT(*) FROM " + TABLE_ORDERS +" WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ") AS nr_sales" +
+                " FROM " + TABLE_PRODUCTS +
+                " LEFT JOIN " + TABLE_CATEGORIES +
+                " ON " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_CATEGORY_ID +
+                " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
+        );
+
         if (sortOrder != ORDER_BY_NONE) {
-            sb.append(" ORDER BY ");
-            sb.append(COLUMN_PRODUCTS_NAME);
-            sb.append(" COLLATE NOCASE ");
+            queryProducts.append(" ORDER BY ");
+            queryProducts.append(COLUMN_PRODUCTS_NAME);
             if (sortOrder == ORDER_BY_DESC) {
-                sb.append("DESC");
+                queryProducts.append("DESC");
             } else {
-                sb.append("ASC");
+                queryProducts.append("ASC");
             }
         }
-
+//        System.out.println(queryProducts.toString());
         try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery(sb.toString())) {
+             ResultSet results = statement.executeQuery(queryProducts.toString())) {
 
             List<Product> products = new ArrayList<>();
             while (results.next()) {
                 Product product = new Product();
-                product.setId(results.getInt(INDEX_PRODUCTS_ID));
-                product.setName(results.getString(INDEX_PRODUCTS_NAME));
+                product.setId(results.getInt(1));
+                product.setName(results.getString(2));
+                product.setDescription(results.getString(3));
+                product.setPrice(results.getDouble(4));
+                product.setQuantity(results.getInt(5));
+                product.setCategory(results.getString(6));
+                product.setNr_sales(results.getInt(7));
                 products.add(product);
             }
-
             return products;
 
         } catch (SQLException e) {

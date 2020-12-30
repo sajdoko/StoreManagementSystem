@@ -1,20 +1,16 @@
 package controller;
 
+import controller.pages.ProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -37,12 +33,6 @@ public class MainDashboardController implements Initializable {
     private Label lblUsrName;
 
 
-    public void acMainOnMouseMove(MouseEvent mouseEvent) {
-    }
-
-    public void acMain(KeyEvent keyEvent) {
-    }
-
     public void btnHomeOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
@@ -54,8 +44,6 @@ public class MainDashboardController implements Initializable {
         acContent.getChildren().clear();
         acContent.getChildren().add(root);
 
-//        System.out.println(lblUsrName.getText());
-//        System.out.println(lblUserId.getText());
     }
 
     public void btnProductsOnClick(ActionEvent actionEvent) {
@@ -65,6 +53,10 @@ public class MainDashboardController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ProductsController controller = fxmlLoader.getController();
+        controller.listProducts();
+
         AnchorPane root = fxmlLoader.getRoot();
         acContent.getChildren().clear();
         acContent.getChildren().add(root);
@@ -128,7 +120,6 @@ public class MainDashboardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         lblUsrName.setText(UserSessionController.getUserFullName());
     }
 }

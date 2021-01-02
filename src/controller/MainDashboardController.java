@@ -38,7 +38,7 @@ public class MainDashboardController implements Initializable {
         try {
             fxmlLoader.load(getClass().getResource("/view/pages/home/home.fxml").openStream());
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
         AnchorPane root = fxmlLoader.getRoot();
         acContent.getChildren().clear();
@@ -54,12 +54,12 @@ public class MainDashboardController implements Initializable {
             e.printStackTrace();
         }
 
-        ProductsController controller = fxmlLoader.getController();
-        controller.listProducts();
-
         AnchorPane root = fxmlLoader.getRoot();
         acContent.getChildren().clear();
         acContent.getChildren().add(root);
+
+        ProductsController controller = fxmlLoader.getController();
+        controller.listProducts();
     }
 
     public void btnOrdersOnClick(ActionEvent actionEvent) {

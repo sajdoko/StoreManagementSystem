@@ -38,7 +38,7 @@
             </GridPane>
         </top>
         <center>
-            <TableView fx:id="tblProductsView" editable="true" prefHeight="200.0" prefWidth="200.0"
+            <TableView fx:id="tableProductsPage" editable="true" prefHeight="200.0" prefWidth="200.0"
                        BorderPane.alignment="CENTER">
                 <columns>
                     <TableColumn prefWidth="75.0" text="Name">
@@ -64,12 +64,6 @@
                     <TableColumn prefWidth="75.0" text="Nr. Sales">
                         <cellValueFactory>
                             <PropertyValueFactory property="nr_sales"/>
-                        </cellValueFactory>
-                    </TableColumn>
-                    <TableColumn prefWidth="75.0" text="Actions">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="edit"/>
-                            <PropertyValueFactory property="delete"/>
                         </cellValueFactory>
                     </TableColumn>
                 </columns>

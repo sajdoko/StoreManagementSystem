@@ -26,9 +26,9 @@
                     <Insets top="20.0"/>
                 </BorderPane.margin>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                    <TextField layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0"
-                               promptText="search products"/>
-                    <Button fx:id="btnProductsSearch" layoutX="300.0" layoutY="2.0" mnemonicParsing="false"
+                    <TextField fx:id="fieldProductsSearch" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0"
+                               promptText="search by product name or description"/>
+                    <Button layoutX="300.0" layoutY="2.0" mnemonicParsing="false"
                             onAction="#btnProductsSearchOnAction" prefHeight="26.0" text="Search"/>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">

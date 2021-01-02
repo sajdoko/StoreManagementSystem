@@ -1,12 +1,7 @@
 package model;
 
 import controller.UserSessionController;
-import controller.pages.ProductsController;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
+import javafx.beans.property.StringProperty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -116,19 +111,7 @@ public class Datasource {
 
     public List<Product> getAllProducts(int sortOrder) {
 
-        StringBuilder queryProducts = new StringBuilder("SELECT " +
-                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
-                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
-                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + ", " +
-                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_PRICE + ", " +
-                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_QUANTITY + ", " +
-                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_NAME + ", " +
-                " (SELECT COUNT(*) FROM " + TABLE_ORDERS +" WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ") AS nr_sales" +
-                " FROM " + TABLE_PRODUCTS +
-                " LEFT JOIN " + TABLE_CATEGORIES +
-                " ON " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_CATEGORY_ID +
-                " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
-        );
+        StringBuilder queryProducts = queryProducts();
 
         if (sortOrder != ORDER_BY_NONE) {
             queryProducts.append(" ORDER BY ");
@@ -163,6 +146,78 @@ public class Datasource {
         }
     }
 
+    public List<Product> searchProducts(String searchString, int sortOrder) {
+
+
+        StringBuilder queryProducts = queryProducts();
+
+        queryProducts.append(" WHERE (" + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + " LIKE ? OR " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + " LIKE ?)");
+
+        if (sortOrder != ORDER_BY_NONE) {
+            queryProducts.append(" ORDER BY ");
+            queryProducts.append(COLUMN_PRODUCTS_NAME);
+            if (sortOrder == ORDER_BY_DESC) {
+                queryProducts.append("DESC");
+            } else {
+                queryProducts.append("ASC");
+            }
+        }
+
+        try (PreparedStatement statement = conn.prepareStatement(queryProducts.toString())) {;
+            statement.setString(1, "%" + searchString + "%");
+            statement.setString(2, "%" + searchString + "%");
+            ResultSet results = statement.executeQuery();
+
+            List<Product> products = new ArrayList<>();
+            while (results.next()) {
+                Product product = new Product();
+                product.setId(results.getInt(1));
+                product.setName(results.getString(2));
+                product.setDescription(results.getString(3));
+                product.setPrice(results.getDouble(4));
+                product.setQuantity(results.getInt(5));
+                product.setCategory(results.getString(6));
+                product.setNr_sales(results.getInt(7));
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private StringBuilder queryProducts() {
+        StringBuilder queryProducts = new StringBuilder("SELECT " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_PRICE + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_QUANTITY + ", " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_NAME + ", " +
+                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ") AS nr_sales" +
+                " FROM " + TABLE_PRODUCTS +
+                " LEFT JOIN " + TABLE_CATEGORIES +
+                " ON " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_CATEGORY_ID +
+                " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
+        );
+        return queryProducts;
+    }
+
+    public boolean deleteSingleProduct(int productId) {
+        String sql = "DELETE FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTS_ID + " = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, productId);
+            int rows = statement.executeUpdate();
+            System.out.println(rows + " record(s) deleted.");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return false;
+        }
+    }
 }
 
 

@@ -6,11 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.pages.ProductsController">
     <children>
         <BorderPane layoutX="14.0" layoutY="14.0">
             <center>
-                <GridPane alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="712.0">
+                <GridPane fx:id="formEditProductView" alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="712.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="148.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="279.0" />
@@ -40,9 +41,6 @@
                                     <String fx:value="3" />
                                 </FXCollections>
                             </items>
-                            <value>
-                                <String fx:value="1" />
-                            </value>
                         </ComboBox>
                         <Label text="Description" GridPane.rowIndex="2" />
                         <TextArea fx:id="fieldAddProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

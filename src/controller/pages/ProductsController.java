@@ -8,9 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import model.Datasource;
 import model.Product;
@@ -27,7 +28,9 @@ public class ProductsController {
     public TextField fieldAddProductPrice;
     public TextField fieldAddProductQuantity;
     public TextArea fieldAddProductDescription;
-    public ComboBox fieldAddProductCategory;
+    public ComboBox fieldAddProductCategoryId;
+    public Text viewProductResponse;
+    public GridPane formEditProductView;
 
     @FXML
     private StackPane productsContent;
@@ -59,6 +62,7 @@ public class ProductsController {
                     {
                         viewButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
+                            btnViewProduct(productData.getId());
                             System.out.println("View Product");
                             System.out.println("product id: " + productData.getId());
                             System.out.println("product name: " + productData.getName());
@@ -69,6 +73,7 @@ public class ProductsController {
                     {
                         editButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
+                            btnEditProduct(productData.getId());
                             System.out.println("Edit Product");
                             System.out.println("product id: " + productData.getId());
                             System.out.println("product name: " + productData.getName());
@@ -125,7 +130,7 @@ public class ProductsController {
     }
 
     @FXML
-    public void btnProductsSearchOnAction() {
+    private void btnProductsSearchOnAction() {
         Task<ObservableList<Product>> searchProductsTask = new Task<ObservableList<Product>>() {
             @Override
             protected ObservableList<Product> call() {
@@ -139,7 +144,7 @@ public class ProductsController {
     }
 
     @FXML
-    public void btnAddProductOnClick() {
+    private void btnAddProductOnClick() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
             fxmlLoader.load(getClass().getResource("/view/pages/products/add-product.fxml").openStream());
@@ -154,23 +159,24 @@ public class ProductsController {
     }
 
     @FXML
-    public void btnAddProductOnAction() {
+    private void btnAddProductOnAction() {
         if (isAddProductInputsValid()) {
             String productName = fieldAddProductName.getText();
             String productDescription = fieldAddProductDescription.getText();
             int productPrice = Integer.parseInt(fieldAddProductPrice.getText());
             int productQuantity = Integer.parseInt(fieldAddProductQuantity.getText());
-            String productCategory = fieldAddProductCategory.getValue().toString();
+            int productCategoryId = Integer.parseInt(fieldAddProductCategoryId.getValue().toString());
 
             Task<Boolean> addProductTask = new Task<Boolean>() {
                 @Override
                 protected Boolean call() {
-                    return Datasource.getInstance().insertNewProduct(productName, productDescription, productPrice, productQuantity, productCategory);
+                    return Datasource.getInstance().insertNewProduct(productName, productDescription, productPrice, productQuantity, productCategoryId);
                 }
             };
 
             addProductTask.setOnSucceeded(e -> {
                 if(addProductTask.valueProperty().get()) {
+                    viewProductResponse.setVisible(true);
                     System.out.println("Product added!");
                 }
             });
@@ -197,7 +203,7 @@ public class ProductsController {
             errorMessage += "Not valid quantity!\n";
         }
 
-        if (fieldAddProductCategory.getAccessibleText() == null || fieldAddProductCategory.getAccessibleText().length() == 0) {
+        if (fieldAddProductCategoryId.getValue().toString() == null || fieldAddProductCategoryId.getValue().toString().length() == 0) {
             errorMessage += "Not valid category id!\n";
         }
 
@@ -216,6 +222,57 @@ public class ProductsController {
             return false;
         }
 
+    }
+
+    private void btnEditProduct(int product_id) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            fxmlLoader.load(getClass().getResource("/view/pages/products/edit-product.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane root = fxmlLoader.getRoot();
+        productsContent.getChildren().clear();
+        productsContent.getChildren().add(root);
+
+        fillEditProduct(product_id);
+
+    }
+
+    private void btnViewProduct(int product_id) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            fxmlLoader.load(getClass().getResource("/view/pages/products/view-product.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane root = fxmlLoader.getRoot();
+        productsContent.getChildren().clear();
+        productsContent.getChildren().add(root);
+
+        fillEditProduct(product_id);
+
+    }
+
+    private void fillEditProduct(int product_id) {
+
+        Task<ObservableList<Product>> fillProductTask = new Task<ObservableList<Product>>() {
+            @Override
+            protected ObservableList<Product> call() {
+                return FXCollections.observableArrayList(
+                        Datasource.getInstance().getOneProduct(product_id));
+            }
+        };
+        fillProductTask.setOnSucceeded(e -> {
+            System.out.println(fillProductTask.valueProperty().getValue().get(0).getName());
+// TODO
+//            fieldAddProductName.setText("test");
+//                fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
+        });
+
+        new Thread(fillProductTask).start();
     }
 }
 

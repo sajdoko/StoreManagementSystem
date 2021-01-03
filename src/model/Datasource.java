@@ -146,6 +146,34 @@ public class Datasource {
         }
     }
 
+    public List<Product> getOneProduct(int product_id) {
+
+        StringBuilder queryProducts = queryProducts();
+        queryProducts.append(" WHERE " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + " = ?");
+//        System.out.println(queryProducts.toString());
+        try (PreparedStatement statement = conn.prepareStatement(String.valueOf(queryProducts))) {
+            statement.setInt(1, product_id);
+            ResultSet results = statement.executeQuery();
+            List<Product> products = new ArrayList<>();
+            while (results.next()) {
+                Product product = new Product();
+                product.setId(results.getInt(1));
+                product.setName(results.getString(2));
+                product.setDescription(results.getString(3));
+                product.setPrice(results.getDouble(4));
+                product.setQuantity(results.getInt(5));
+                product.setCategory(results.getString(6));
+                product.setNr_sales(results.getInt(7));
+                products.add(product);
+            }
+            return products;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+
     public List<Product> searchProducts(String searchString, int sortOrder) {
 
 
@@ -163,7 +191,7 @@ public class Datasource {
             }
         }
 
-        try (PreparedStatement statement = conn.prepareStatement(queryProducts.toString())) {;
+        try (PreparedStatement statement = conn.prepareStatement(queryProducts.toString())) {
             statement.setString(1, "%" + searchString + "%");
             statement.setString(2, "%" + searchString + "%");
             ResultSet results = statement.executeQuery();
@@ -219,9 +247,29 @@ public class Datasource {
         }
     }
 
-    public boolean insertNewProduct(String name, String description, int price, int quantity, String category_id) {
+    public boolean insertNewProduct(String name, String description, int price, int quantity, int category_id) {
 
-        return true;
+        String sql = "INSERT INTO " + TABLE_PRODUCTS + " ("
+                + COLUMN_PRODUCTS_NAME + ", "
+                + COLUMN_PRODUCTS_DESCRIPTION + ", "
+                + COLUMN_PRODUCTS_PRICE + ", "
+                + COLUMN_PRODUCTS_QUANTITY + ", "
+                + COLUMN_PRODUCTS_CATEGORY_ID +
+                ") VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setInt(3, price);
+            statement.setInt(4, quantity);
+            statement.setInt(5, category_id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return false;
+        }
     }
 }
 

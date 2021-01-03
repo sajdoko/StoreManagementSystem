@@ -2,27 +2,35 @@ package controller.pages;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.concurrent.Task;
-import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import model.Datasource;
 import model.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 public class ProductsController {
 
+
     @FXML
     public TextField fieldProductsSearch;
+    public TextField fieldAddProductName;
+    public TextField fieldAddProductPrice;
+    public TextField fieldAddProductQuantity;
+    public TextArea fieldAddProductDescription;
+    public ComboBox fieldAddProductCategory;
+
+    @FXML
+    private StackPane productsContent;
 
     @FXML
     private TableView<Product> tableProductsPage;
@@ -117,17 +125,97 @@ public class ProductsController {
     }
 
     @FXML
-    public void btnProductsSearchOnAction(ActionEvent actionEvent) {
-        Task<ObservableList<Product>> task = new Task<ObservableList<Product>>() {
+    public void btnProductsSearchOnAction() {
+        Task<ObservableList<Product>> searchProductsTask = new Task<ObservableList<Product>>() {
             @Override
-            protected ObservableList<Product> call() throws Exception {
+            protected ObservableList<Product> call() {
                 return FXCollections.observableArrayList(
                         Datasource.getInstance().searchProducts(fieldProductsSearch.getText().toLowerCase(), Datasource.ORDER_BY_NONE));
             }
         };
-        tableProductsPage.itemsProperty().bind(task.valueProperty());
+        tableProductsPage.itemsProperty().bind(searchProductsTask.valueProperty());
 
-        new Thread(task).start();
+        new Thread(searchProductsTask).start();
+    }
+
+    @FXML
+    public void btnAddProductOnClick() {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            fxmlLoader.load(getClass().getResource("/view/pages/products/add-product.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane root = fxmlLoader.getRoot();
+        productsContent.getChildren().clear();
+        productsContent.getChildren().add(root);
+
+    }
+
+    @FXML
+    public void btnAddProductOnAction() {
+        if (isAddProductInputsValid()) {
+            String productName = fieldAddProductName.getText();
+            String productDescription = fieldAddProductDescription.getText();
+            int productPrice = Integer.parseInt(fieldAddProductPrice.getText());
+            int productQuantity = Integer.parseInt(fieldAddProductQuantity.getText());
+            String productCategory = fieldAddProductCategory.getValue().toString();
+
+            Task<Boolean> addProductTask = new Task<Boolean>() {
+                @Override
+                protected Boolean call() {
+                    return Datasource.getInstance().insertNewProduct(productName, productDescription, productPrice, productQuantity, productCategory);
+                }
+            };
+
+            addProductTask.setOnSucceeded(e -> {
+                if(addProductTask.valueProperty().get()) {
+                    System.out.println("Product added!");
+                }
+            });
+
+            new Thread(addProductTask).start();
+        }
+    }
+
+    @FXML
+    private boolean isAddProductInputsValid() {
+        String errorMessage = "";
+
+        if (fieldAddProductName.getText() == null || fieldAddProductName.getText().length() == 0) {
+            errorMessage += "Not valid name!\n";
+        }
+        if (fieldAddProductDescription.getText() == null || fieldAddProductDescription.getText().length() == 0) {
+            errorMessage += "Not valid Description!\n";
+        }
+        if (fieldAddProductPrice.getText() == null || fieldAddProductPrice.getText().length() == 0) {
+            errorMessage += "Not valid Price!\n";
+        }
+
+        if (fieldAddProductQuantity.getText() == null || fieldAddProductQuantity.getText().length() == 0) {
+            errorMessage += "Not valid quantity!\n";
+        }
+
+        if (fieldAddProductCategory.getAccessibleText() == null || fieldAddProductCategory.getAccessibleText().length() == 0) {
+            errorMessage += "Not valid category id!\n";
+        }
+
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
+
+            return false;
+        }
+
     }
 }
 

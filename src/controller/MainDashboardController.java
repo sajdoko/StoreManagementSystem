@@ -28,7 +28,7 @@ public class MainDashboardController implements Initializable {
     public Button btnSettings;
     public Button lblLogOut;
     @FXML
-    private StackPane acContent;
+    private StackPane dashContent;
     @FXML
     private Label lblUsrName;
 
@@ -41,8 +41,8 @@ public class MainDashboardController implements Initializable {
             e.printStackTrace();
         }
         AnchorPane root = fxmlLoader.getRoot();
-        acContent.getChildren().clear();
-        acContent.getChildren().add(root);
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
 
     }
 
@@ -55,8 +55,8 @@ public class MainDashboardController implements Initializable {
         }
 
         AnchorPane root = fxmlLoader.getRoot();
-        acContent.getChildren().clear();
-        acContent.getChildren().add(root);
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
 
         ProductsController controller = fxmlLoader.getController();
         controller.listProducts();
@@ -70,8 +70,8 @@ public class MainDashboardController implements Initializable {
             e.printStackTrace();
         }
         AnchorPane root = fxmlLoader.getRoot();
-        acContent.getChildren().clear();
-        acContent.getChildren().add(root);
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
     }
 
     public void btnCustomersOnClick(ActionEvent actionEvent) {
@@ -82,8 +82,8 @@ public class MainDashboardController implements Initializable {
             e.printStackTrace();
         }
         AnchorPane root = fxmlLoader.getRoot();
-        acContent.getChildren().clear();
-        acContent.getChildren().add(root);
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
     }
 
     public void btnSettingsOnClick(ActionEvent actionEvent) {
@@ -94,8 +94,8 @@ public class MainDashboardController implements Initializable {
             e.printStackTrace();
         }
         AnchorPane root = fxmlLoader.getRoot();
-        acContent.getChildren().clear();
-        acContent.getChildren().add(root);
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
     }
 
     public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {

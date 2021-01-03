@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" fx:id="acMain" onKeyPressed="#acMain" onMouseMoved="#acMainOnMouseMove" prefHeight="800.0" prefWidth="1280.0" stylesheets="@resources/css/dashboard.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashboardController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1280.0" stylesheets="@resources/css/dashboard.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainDashboardController">
     <children>
         <StackPane layoutY="-9.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -29,7 +29,7 @@
                         </AnchorPane>
                     </left>
                     <center>
-                          <StackPane fx:id="acContent" prefHeight="150.0" prefWidth="200.0">
+                          <StackPane fx:id="dashContent" prefHeight="150.0" prefWidth="200.0">
                               <children>
                                   <GridPane prefHeight="728.0" prefWidth="1120.0">
                                       <columnConstraints>
@@ -82,7 +82,7 @@
                           </StackPane>
                     </center>
                <top>
-                   <AnchorPane fx:id="acHead" prefHeight="42.0" prefWidth="753.0" BorderPane.alignment="CENTER">
+                   <AnchorPane fx:id="dashHead" prefHeight="42.0" prefWidth="753.0" BorderPane.alignment="CENTER">
                        <children>
                            <GridPane layoutX="14.0" layoutY="-15.0" prefHeight="60.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                <columnConstraints>

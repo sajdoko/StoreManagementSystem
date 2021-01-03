@@ -218,6 +218,11 @@ public class Datasource {
             return false;
         }
     }
+
+    public boolean insertNewProduct(String name, String description, int price, int quantity, String category_id) {
+
+        return true;
+    }
 }
 
 

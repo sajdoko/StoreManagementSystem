@@ -1,5 +1,6 @@
 package controller;
 
+import controller.pages.HomeController;
 import controller.pages.ProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ public class MainDashboardController implements Initializable {
     public Button btnOrders;
     public Button btnSettings;
     public Button lblLogOut;
+    public AnchorPane dashHead;
     @FXML
     private StackPane dashContent;
     @FXML
@@ -34,68 +36,30 @@ public class MainDashboardController implements Initializable {
 
 
     public void btnHomeOnClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            fxmlLoader.load(getClass().getResource("/view/pages/home/home.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AnchorPane root = fxmlLoader.getRoot();
-        dashContent.getChildren().clear();
-        dashContent.getChildren().add(root);
-
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/home/home.fxml");
+        HomeController homeController = fxmlLoader.getController();
+        homeController.getDashboardProdCount();
+        homeController.getDashboardCostCount();
     }
 
     public void btnProductsOnClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            fxmlLoader.load(getClass().getResource("/view/pages/products/products.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        AnchorPane root = fxmlLoader.getRoot();
-        dashContent.getChildren().clear();
-        dashContent.getChildren().add(root);
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/products/products.fxml");
 
         ProductsController controller = fxmlLoader.getController();
         controller.listProducts();
     }
 
     public void btnOrdersOnClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            fxmlLoader.load(getClass().getResource("/view/pages/orders/orders.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AnchorPane root = fxmlLoader.getRoot();
-        dashContent.getChildren().clear();
-        dashContent.getChildren().add(root);
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/orders/orders.fxml");
     }
 
     public void btnCustomersOnClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            fxmlLoader.load(getClass().getResource("/view/pages/customers/customers.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AnchorPane root = fxmlLoader.getRoot();
-        dashContent.getChildren().clear();
-        dashContent.getChildren().add(root);
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/customers/customers.fxml");
     }
 
     public void btnSettingsOnClick(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        try {
-            fxmlLoader.load(getClass().getResource("/view/pages/settings/settings.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AnchorPane root = fxmlLoader.getRoot();
-        dashContent.getChildren().clear();
-        dashContent.getChildren().add(root);
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/settings/settings.fxml");
     }
 
     public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {
@@ -118,8 +82,27 @@ public class MainDashboardController implements Initializable {
         }
     }
 
+    private FXMLLoader loadFxmlPage(String view_path) {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        try {
+            fxmlLoader.load(getClass().getResource(view_path).openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        AnchorPane root = fxmlLoader.getRoot();
+        dashContent.getChildren().clear();
+        dashContent.getChildren().add(root);
+
+        return fxmlLoader;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         lblUsrName.setText(UserSessionController.getUserFullName());
+
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/home/home.fxml");
+        HomeController homeController = fxmlLoader.getController();
+        homeController.getDashboardProdCount();
+        homeController.getDashboardCostCount();
     }
 }

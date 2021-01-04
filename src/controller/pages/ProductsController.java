@@ -41,12 +41,17 @@ public class ProductsController {
     @FXML
     public void listProducts() {
 
-        GetAllProductsTask getAllProductsTask = new GetAllProductsTask();
+        Task<ObservableList<Product>> getAllProductsTask = new Task<ObservableList<Product>>() {
+            @Override
+            protected ObservableList<Product> call() {
+                return FXCollections.observableArrayList(Datasource.getInstance().getAllProducts(Datasource.ORDER_BY_NONE));
+            }
+        };
 
         tableProductsPage.itemsProperty().bind(getAllProductsTask.valueProperty());
         addActionButtonsToTable();
-
         new Thread(getAllProductsTask).start();
+
     }
 
     @FXML
@@ -59,6 +64,7 @@ public class ProductsController {
                 return new TableCell<Product, Void>() {
 
                     private final Button viewButton = new Button("View");
+
                     {
                         viewButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
@@ -70,6 +76,7 @@ public class ProductsController {
                     }
 
                     private final Button editButton = new Button("Edit");
+
                     {
                         editButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
@@ -81,6 +88,7 @@ public class ProductsController {
                     }
 
                     private final Button deleteButton = new Button("Delete");
+
                     {
                         deleteButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
@@ -102,6 +110,7 @@ public class ProductsController {
                     }
 
                     private final HBox buttonsPane = new HBox();
+
                     {
                         buttonsPane.setSpacing(10);
                         buttonsPane.getChildren().add(viewButton);
@@ -175,7 +184,7 @@ public class ProductsController {
             };
 
             addProductTask.setOnSucceeded(e -> {
-                if(addProductTask.valueProperty().get()) {
+                if (addProductTask.valueProperty().get()) {
                     viewProductResponse.setVisible(true);
                     System.out.println("Product added!");
                 }
@@ -187,6 +196,8 @@ public class ProductsController {
 
     @FXML
     private boolean isAddProductInputsValid() {
+        // TODO
+        //  Better validate inputs.
         String errorMessage = "";
 
         if (fieldAddProductName.getText() == null || fieldAddProductName.getText().length() == 0) {
@@ -224,6 +235,7 @@ public class ProductsController {
 
     }
 
+    @FXML
     private void btnEditProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
@@ -240,6 +252,7 @@ public class ProductsController {
 
     }
 
+    @FXML
     private void btnViewProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
@@ -256,6 +269,7 @@ public class ProductsController {
 
     }
 
+    @FXML
     private void fillEditProduct(int product_id) {
 
         Task<ObservableList<Product>> fillProductTask = new Task<ObservableList<Product>>() {
@@ -268,19 +282,11 @@ public class ProductsController {
         fillProductTask.setOnSucceeded(e -> {
             System.out.println(fillProductTask.valueProperty().getValue().get(0).getName());
 // TODO
-//            fieldAddProductName.setText("test");
-//                fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
+//  fieldAddProductName.setText("test");
+//  fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
         });
 
         new Thread(fillProductTask).start();
     }
-}
 
-class GetAllProductsTask extends Task {
-
-    @Override
-    public ObservableList<Product> call() {
-        return FXCollections.observableArrayList
-                (Datasource.getInstance().getAllProducts(Datasource.ORDER_BY_NONE));
-    }
 }

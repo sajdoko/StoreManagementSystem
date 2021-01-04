@@ -217,7 +217,7 @@ public class Datasource {
     }
 
     private StringBuilder queryProducts() {
-        StringBuilder queryProducts = new StringBuilder("SELECT " +
+        return new StringBuilder("SELECT " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + ", " +
@@ -230,7 +230,6 @@ public class Datasource {
                 " ON " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_CATEGORY_ID +
                 " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
         );
-        return queryProducts;
     }
 
     public boolean deleteSingleProduct(int productId) {
@@ -269,6 +268,39 @@ public class Datasource {
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
             return false;
+        }
+    }
+
+    public Integer countAllProducts() {
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_PRODUCTS)) {
+            if (results.next()) {
+                return results.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public Integer countAllCustomers() {
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_ORDERS +
+                 " LEFT JOIN " + TABLE_USERS +
+                 " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_ID +
+                 " = " + TABLE_USERS + "." + COLUMN_USERS_ID
+             )
+        ) {
+            if (results.next()) {
+                return results.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return 0;
         }
     }
 }

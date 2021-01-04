@@ -20,7 +20,7 @@
         <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                 <children>
-                    <Label alignment="CENTER_RIGHT" text="351">
+                    <Label fx:id="productsCount" alignment="CENTER_RIGHT" text="0">
                         <font>
                             <Font size="50.0" />
                         </font>
@@ -37,7 +37,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                 <children>
-                    <Label alignment="CENTER_RIGHT" text="16">
+                    <Label fx:id="customersCount" alignment="CENTER_RIGHT" text="0">
                         <font>
                             <Font size="50.0" />
                         </font>

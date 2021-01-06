@@ -81,32 +81,27 @@ public class Datasource {
         }
     }
 
-    public int logIn(String email, String password) throws SQLException {
+    public User logIn(String email) throws SQLException {
 
-        PreparedStatement preparedStatement = conn.prepareStatement(
-                "SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_EMAIL + " = ? AND " + COLUMN_USERS_PASSWORD + " = ? "
-        );
+        PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_EMAIL + " = ?");
         preparedStatement.setString(1, email);
-        preparedStatement.setString(2, password);
-
         ResultSet results = preparedStatement.executeQuery();
 
+        User user = new User();
         if (results.next()) {
 
-            new UserSessionController(
-                    results.getInt(1),
-                    results.getString(2),
-                    results.getString(3),
-                    results.getString(4),
-                    results.getInt(5),
-                    results.getString(6)
-            );
+            user.setId(results.getInt("id"));
+            user.setFullname(results.getString("fullname"));
+            user.setUsername(results.getString("username"));
+            user.setEmail(results.getString("email"));
+            user.setPassword(results.getString("password"));
+            user.setSalt(results.getString("salt"));
+            user.setAdmin(results.getInt("admin"));
+            user.setStatus(results.getString("status"));
 
-            return results.getInt(1);
-        } else {
-            return 0;
         }
 
+        return user;
     }
 
     public List<Product> getAllProducts(int sortOrder) {

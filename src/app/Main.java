@@ -1,5 +1,6 @@
 package app;
 
+import app.utils.PasswordUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("/view/resources/img/brand/fav.png"));
         primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
+
     }
 
     @Override

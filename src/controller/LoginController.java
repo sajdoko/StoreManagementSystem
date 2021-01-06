@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import app.utils.PasswordUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 
 public class LoginController implements Initializable {
     @FXML
@@ -28,11 +31,20 @@ public class LoginController implements Initializable {
 
     public void handleLoginButtonAction(ActionEvent event) throws SQLException, IOException {
         String email = emailField.getText();
-        String password = passwordField.getText();
+        String providedPassword = passwordField.getText();
 
-        int userId = model.Datasource.getInstance().logIn(email, password);
-//        System.out.println(userId);
-        if ( userId > 0) {
+        User user = model.Datasource.getInstance().logIn(email);
+        boolean passwordMatch = PasswordUtils.verifyUserPassword(providedPassword, user.getPassword(), user.getSalt());
+
+        if ( passwordMatch) {
+            new UserSessionController(
+                    (int) user.getId(),
+                    user.getFullname(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    user.getAdmin(),
+                    user.getStatus()
+            );
 
             Node node = (Node)event.getSource();
             dialogStage = (Stage) node.getScene().getWindow();

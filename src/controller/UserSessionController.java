@@ -61,11 +61,4 @@ public final class UserSessionController {
         userStatus = null;
     }
 
-//    @Override
-//    public String toString() {
-//        return "UserSession{" +
-//                "userName='" + userFullName + '\'' +
-//                ", privileges=" + privileges +
-//                '}';
-//    }
 }

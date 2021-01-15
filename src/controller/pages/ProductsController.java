@@ -31,6 +31,7 @@ public class ProductsController {
     public ComboBox fieldAddProductCategoryId;
     public Text viewProductResponse;
     public GridPane formEditProductView;
+    public TextField fieldAddProductNameEdit;
 
     @FXML
     private StackPane productsContent;
@@ -280,10 +281,11 @@ public class ProductsController {
             }
         };
         fillProductTask.setOnSucceeded(e -> {
-            System.out.println(fillProductTask.valueProperty().getValue().get(0).getName());
-// TODO
-//  fieldAddProductName.setText("test");
-//  fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
+//            fieldAddProductNameEdit.setText("test");
+            System.out.println("pr name:" + fillProductTask.valueProperty().getValue().get(0).getName());
+            // TODO
+            //  fieldAddProductName.setText("test");
+            //  fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
         });
 
         new Thread(fillProductTask).start();

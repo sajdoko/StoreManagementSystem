@@ -27,7 +27,7 @@
                     </rowConstraints>
                     <children>
                         <Label text="Product Name" />
-                        <TextField fx:id="fieldAddProductName" GridPane.columnIndex="1" />
+                        <TextField fx:id="fieldAddProductNameEdit" GridPane.columnIndex="1" />
                         <Label text="Product Price" GridPane.columnIndex="3" />
                         <TextField fx:id="fieldAddProductPrice" GridPane.columnIndex="4" />
                         <Label text="Quantity" GridPane.rowIndex="1" />

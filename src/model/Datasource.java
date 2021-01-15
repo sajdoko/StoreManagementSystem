@@ -1,8 +1,5 @@
 package model;
 
-import controller.UserSessionController;
-import javafx.beans.property.StringProperty;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

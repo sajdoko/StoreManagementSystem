@@ -101,6 +101,8 @@ public class Datasource {
         return user;
     }
 
+
+    // BEGIN PRODUCTS QUERIES
     public List<Product> getAllProducts(int sortOrder) {
 
         StringBuilder queryProducts = queryProducts();
@@ -137,7 +139,6 @@ public class Datasource {
             return null;
         }
     }
-
     public List<Product> getOneProduct(int product_id) {
 
         StringBuilder queryProducts = queryProducts();
@@ -165,7 +166,6 @@ public class Datasource {
             return null;
         }
     }
-
     public List<Product> searchProducts(String searchString, int sortOrder) {
 
 
@@ -207,7 +207,6 @@ public class Datasource {
             return null;
         }
     }
-
     private StringBuilder queryProducts() {
         return new StringBuilder("SELECT " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
@@ -223,7 +222,6 @@ public class Datasource {
                 " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
         );
     }
-
     public boolean deleteSingleProduct(int productId) {
         String sql = "DELETE FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTS_ID + " = ?";
 
@@ -237,7 +235,6 @@ public class Datasource {
             return false;
         }
     }
-
     public boolean insertNewProduct(String name, String description, int price, int quantity, int category_id) {
 
         String sql = "INSERT INTO " + TABLE_PRODUCTS + " ("
@@ -262,6 +259,133 @@ public class Datasource {
             return false;
         }
     }
+    // END PRODUCTS QUERIES
+
+    // BEGIN CUSTOMERS QUERIES
+    public List<Customer> getAllCustomers(int sortOrder) {
+
+        StringBuilder queryCustomers = queryCustomers();
+
+        if (sortOrder != ORDER_BY_NONE) {
+            queryCustomers.append(" ORDER BY ");
+            queryCustomers.append(COLUMN_USERS_FULLNAME);
+            if (sortOrder == ORDER_BY_DESC) {
+                queryCustomers.append("DESC");
+            } else {
+                queryCustomers.append("ASC");
+            }
+        }
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(queryCustomers.toString())) {
+
+            List<Customer> customers = new ArrayList<>();
+            while (results.next()) {
+                Customer customer = new Customer();
+                customer.setId(results.getInt(1));
+                customer.setFullname(results.getString(2));
+                customer.setEmail(results.getString(3));
+                customer.setUsername(results.getString(4));
+                customer.setStatus(results.getString(5));
+                customer.setOrders(results.getInt(6));
+                customers.add(customer);
+            }
+            return customers;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+    public List<Customer> getOneCustomer(int customer_id) {
+
+        StringBuilder queryCustomers = queryCustomers();
+        queryCustomers.append(" WHERE " + TABLE_USERS + "." + COLUMN_USERS_ID + " = ?");
+        try (PreparedStatement statement = conn.prepareStatement(String.valueOf(queryCustomers))) {
+            statement.setInt(1, customer_id);
+            ResultSet results = statement.executeQuery();
+            List<Customer> customers = new ArrayList<>();
+            while (results.next()) {
+                Customer customer = new Customer();
+                customer.setId(results.getInt(1));
+                customer.setFullname(results.getString(2));
+                customer.setEmail(results.getString(3));
+                customer.setUsername(results.getString(4));
+                customer.setOrders(results.getInt(5));
+                customer.setStatus(results.getString(6));
+                customers.add(customer);
+            }
+            return customers;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+    public List<Customer> searchCustomers(String searchString, int sortOrder) {
+
+        StringBuilder queryCustomers = queryCustomers();
+
+        queryCustomers.append(" WHERE (" + TABLE_USERS + "." + COLUMN_USERS_FULLNAME + " LIKE ? OR " + TABLE_USERS + "." + COLUMN_USERS_USERNAME + " LIKE ?)");
+
+        if (sortOrder != ORDER_BY_NONE) {
+            queryCustomers.append(" ORDER BY ");
+            queryCustomers.append(COLUMN_USERS_FULLNAME);
+            if (sortOrder == ORDER_BY_DESC) {
+                queryCustomers.append("DESC");
+            } else {
+                queryCustomers.append("ASC");
+            }
+        }
+
+        try (PreparedStatement statement = conn.prepareStatement(queryCustomers.toString())) {
+            statement.setString(1, "%" + searchString + "%");
+            statement.setString(2, "%" + searchString + "%");
+            ResultSet results = statement.executeQuery();
+
+            List<Customer> customers = new ArrayList<>();
+            while (results.next()) {
+                Customer customer = new Customer();
+                customer.setId(results.getInt(1));
+                customer.setFullname(results.getString(2));
+                customer.setEmail(results.getString(3));
+                customer.setUsername(results.getString(4));
+                customer.setOrders(results.getInt(5));
+                customer.setStatus(results.getString(6));
+                customers.add(customer);
+            }
+            return customers;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+    private StringBuilder queryCustomers() {
+        return new StringBuilder("SELECT " +
+                TABLE_USERS + "." + COLUMN_USERS_ID + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_FULLNAME + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_EMAIL + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_USERNAME + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_STATUS + ", " +
+                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + " = " + TABLE_USERS + "." + COLUMN_USERS_ID + ") AS orders" +
+                " FROM " + TABLE_USERS
+        );
+    }
+    public boolean deleteSingleCustomer(int customerId) {
+        String sql = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_ID + " = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, customerId);
+            int rows = statement.executeUpdate();
+            System.out.println(rows + " record(s) deleted.");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return false;
+        }
+    }
+    // END CUSTOMERS QUERIES
+
 
     public Integer countAllProducts() {
         try (Statement statement = conn.createStatement();
@@ -279,11 +403,14 @@ public class Datasource {
 
     public Integer countAllCustomers() {
         try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_ORDERS +
-                 " LEFT JOIN " + TABLE_USERS +
-                 " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_ID +
-                 " = " + TABLE_USERS + "." + COLUMN_USERS_ID
-             )
+//             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_ORDERS +
+//                     " LEFT JOIN " + TABLE_USERS +
+//                     " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_ID +
+//                     " = " + TABLE_USERS + "." + COLUMN_USERS_ID
+//             )
+             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_USERS +
+                 " WHERE " + COLUMN_USERS_ADMIN + "= 0"
+        )
         ) {
             if (results.next()) {
                 return results.getInt(1);
@@ -295,6 +422,7 @@ public class Datasource {
             return 0;
         }
     }
+
 }
 
 

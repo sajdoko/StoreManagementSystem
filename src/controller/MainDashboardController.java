@@ -1,5 +1,6 @@
 package controller;
 
+import controller.pages.CustomersController;
 import controller.pages.HomeController;
 import controller.pages.ProductsController;
 import javafx.event.ActionEvent;
@@ -56,6 +57,9 @@ public class MainDashboardController implements Initializable {
 
     public void btnCustomersOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = loadFxmlPage("/view/pages/customers/customers.fxml");
+
+        CustomersController controller = fxmlLoader.getController();
+        controller.listCustomers();
     }
 
     public void btnSettingsOnClick(ActionEvent actionEvent) {

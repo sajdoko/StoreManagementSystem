@@ -56,7 +56,11 @@ public class LoginController implements Initializable {
                     Node node = (Node) event.getSource();
                     dialogStage = (Stage) node.getScene().getWindow();
                     dialogStage.close();
-                    scene = new Scene(FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml")));
+                    if (user.getAdmin() == 0) {
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("../view/user/main-dashboard.fxml")));
+                    } else if (user.getAdmin() == 1) {
+                        scene = new Scene(FXMLLoader.load(getClass().getResource("../view/admin/main-dashboard.fxml")));
+                    }
                     dialogStage.setScene(scene);
                     dialogStage.show();
                 } else {

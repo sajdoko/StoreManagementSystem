@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@resources/css/login.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RegisterController">
+   <BorderPane prefHeight="200.0" prefWidth="200.0">
+      <center>
+         <AnchorPane styleClass="root" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="546.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@resources/img/brand/sm-logo.png" />
+            </ImageView>
+            <Text id="welcome-text" layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="390.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your details below to create an account:" textAlignment="CENTER" wrappingWidth="500.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="fullNameField" layoutX="523.0" layoutY="349.0" prefHeight="26.0" prefWidth="248.0" promptText=" Name/Surname" />
+            <TextField fx:id="usernameField" layoutX="523.0" layoutY="387.0" prefHeight="26.0" prefWidth="248.0" promptText=" username" />
+            <TextField fx:id="emailField" layoutX="523.0" layoutY="425.0" prefHeight="26.0" prefWidth="248.0" promptText=" email" />
+            <PasswordField fx:id="passwordField" layoutX="523.0" layoutY="463.0" prefHeight="26.0" prefWidth="248.0" promptText="password" />
+            <Button layoutX="523.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="32.0" prefWidth="248.0" text="Register">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Text layoutX="390.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="or" textAlignment="CENTER" wrappingWidth="500.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="523.0" layoutY="603.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="32.0" prefWidth="248.0" text="Login">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </AnchorPane>
+      </center>
+   </BorderPane>
+</StackPane>

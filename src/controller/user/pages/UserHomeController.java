@@ -4,7 +4,7 @@ import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import model.Datasource;
 
-public class HomeController {
+public class UserHomeController {
 
     public Label productsCount;
     public Label customersCount;

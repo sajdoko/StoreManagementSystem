@@ -5,36 +5,38 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@resources/css/login.css"
-           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="controller.LoginController">
+<StackPane prefHeight="800.0" prefWidth="1280.0" styleClass="root" stylesheets="@resources/css/login.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <BorderPane prefHeight="200.0" prefWidth="200.0">
       <center>
          <AnchorPane styleClass="root" BorderPane.alignment="CENTER">
-            <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="546.0" layoutY="97.0" pickOnBounds="true"
-                       preserveRatio="true">
-               <Image url="@resources/img/brand/sm-logo.png"/>
+            <ImageView fitHeight="94.0" fitWidth="189.0" layoutX="546.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@resources/img/brand/sm-logo.png" />
             </ImageView>
-            <Text id="welcome-text" layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Welcome" textAlignment="CENTER">
+            <Text id="welcome-text" layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" textAlignment="CENTER">
                <font>
-                  <Font size="36.0"/>
+                  <Font size="36.0" />
                </font>
             </Text>
-            <Text layoutX="390.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Enter username and password to login:" textAlignment="CENTER" wrappingWidth="500.0">
+            <Text layoutX="390.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter username and password to login:" textAlignment="CENTER" wrappingWidth="500.0">
                <font>
-                  <Font size="18.0"/>
+                  <Font size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" layoutX="523.0" layoutY="349.0" prefHeight="26.0" prefWidth="248.0"
-                       promptText=" username"/>
-            <PasswordField fx:id="passwordField" layoutX="523.0" layoutY="387.0" prefHeight="26.0" prefWidth="248.0"
-                           promptText="password"/>
-            <Button layoutX="523.0" layoutY="458.0" mnemonicParsing="false" onAction="#handleLoginButtonAction"
-                    prefHeight="32.0" prefWidth="248.0" text="Login">
+            <TextField fx:id="usernameField" layoutX="523.0" layoutY="349.0" prefHeight="26.0" prefWidth="248.0" promptText=" username" />
+            <PasswordField fx:id="passwordField" layoutX="523.0" layoutY="387.0" prefHeight="26.0" prefWidth="248.0" promptText="password" />
+            <Button layoutX="523.0" layoutY="458.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="32.0" prefWidth="248.0" text="Login">
                <font>
-                  <Font size="15.0"/>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Text layoutX="390.0" layoutY="520.0" strokeType="OUTSIDE" strokeWidth="0.0" text="or" textAlignment="CENTER" wrappingWidth="500.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="523.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="32.0" prefWidth="248.0" text="Register">
+               <font>
+                  <Font size="15.0" />
                </font>
             </Button>
          </AnchorPane>

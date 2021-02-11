@@ -2,7 +2,7 @@ package controller.user.pages;
 
 import javafx.event.ActionEvent;
 
-public class OrdersController {
+public class UserOrdersController {
     public void btnOrdersSearchOnAction(ActionEvent actionEvent) {
     }
 }

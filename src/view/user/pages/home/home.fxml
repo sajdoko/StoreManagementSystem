@@ -5,7 +5,7 @@
 
 <?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
-<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.user.pages.HomeController">
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.user.pages.UserHomeController">
 
     <GridPane prefHeight="728.0" prefWidth="1120.0">
         <columnConstraints>

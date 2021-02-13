@@ -27,8 +27,6 @@ public class Datasource {
     public static final String COLUMN_ORDERS_ID = "id";
     public static final String COLUMN_ORDERS_PRODUCT_ID = "product_id";
     public static final String COLUMN_ORDERS_USER_ID = "user_id";
-    public static final String COLUMN_ORDERS_SHIPPING_ADDRESS = "shipping_address";
-    public static final String COLUMN_ORDERS_ORDER_EMAIL = "order_email";
     public static final String COLUMN_ORDERS_ORDER_DATE = "order_date";
     public static final String COLUMN_ORDERS_ORDER_STATUS = "order_status";
 
@@ -234,6 +232,17 @@ public class Datasource {
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
             return false;
+        }
+    }
+    public void decreaseStock(int product_id) {
+
+        String sql = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_PRODUCTS_QUANTITY + " = " + COLUMN_PRODUCTS_QUANTITY + " - 1 WHERE " + COLUMN_PRODUCTS_ID + " = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, product_id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
         }
     }
     // END PRODUCTS QUERIES
@@ -445,8 +454,6 @@ public class Datasource {
                 TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + ", " +
                 TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + ", " +
                 TABLE_USERS + "." + COLUMN_USERS_FULLNAME + ", " +
-                TABLE_ORDERS + "." + COLUMN_ORDERS_SHIPPING_ADDRESS + ", " +
-                TABLE_ORDERS + "." + COLUMN_ORDERS_ORDER_EMAIL + ", " +
                 TABLE_ORDERS + "." + COLUMN_ORDERS_ORDER_DATE + ", " +
                 TABLE_ORDERS + "." + COLUMN_ORDERS_ORDER_STATUS + ", " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
@@ -483,12 +490,10 @@ public class Datasource {
                 order.setProduct_id(results.getInt(2));
                 order.setUser_id(results.getInt(3));
                 order.setUser_full_name(results.getString(4));
-                order.setShipping_address(results.getString(5));
-                order.setOrder_email(results.getString(6));
-                order.setOrder_date(results.getString(7));
-                order.setOrder_status(results.getString(8));
-                order.setProduct_name(results.getString(9));
-                order.setOrder_price(results.getDouble(10));
+                order.setOrder_date(results.getString(5));
+                order.setOrder_status(results.getString(6));
+                order.setProduct_name(results.getString(7));
+                order.setOrder_price(results.getDouble(8));
                 orders.add(order);
             }
             return orders;
@@ -498,24 +503,77 @@ public class Datasource {
             return null;
         }
     }
-    public boolean insertNewOrder(int product_id, int user_id, String shipping_address, String order_email, String order_date, String order_status) {
+    public List<Order> getAllUserOrders(int sortOrder, int user_id) {
+
+        StringBuilder queryOrders = new StringBuilder("SELECT " +
+                TABLE_ORDERS + "." + COLUMN_ORDERS_ID + ", " +
+                TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + ", " +
+                TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_FULLNAME + ", " +
+                TABLE_ORDERS + "." + COLUMN_ORDERS_ORDER_DATE + ", " +
+                TABLE_ORDERS + "." + COLUMN_ORDERS_ORDER_STATUS + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + ", " +
+                TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_PRICE +
+                " FROM " + TABLE_ORDERS
+        );
+
+        queryOrders.append("" +
+                " LEFT JOIN " + TABLE_PRODUCTS +
+                " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID +
+                " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID);
+        queryOrders.append("" +
+                " LEFT JOIN " + TABLE_USERS +
+                " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID +
+                " = " + TABLE_USERS + "." + COLUMN_USERS_ID);
+        queryOrders.append( " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + " = " + user_id);
+
+        if (sortOrder != ORDER_BY_NONE) {
+            queryOrders.append(" ORDER BY ");
+            queryOrders.append(COLUMN_USERS_FULLNAME);
+            if (sortOrder == ORDER_BY_DESC) {
+                queryOrders.append("DESC");
+            } else {
+                queryOrders.append("ASC");
+            }
+        }
+
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(queryOrders.toString())) {
+
+            List<Order> orders = new ArrayList<>();
+            while (results.next()) {
+                Order order = new Order();
+                order.setId(results.getInt(1));
+                order.setProduct_id(results.getInt(2));
+                order.setUser_id(results.getInt(3));
+                order.setUser_full_name(results.getString(4));
+                order.setOrder_date(results.getString(5));
+                order.setOrder_status(results.getString(6));
+                order.setProduct_name(results.getString(7));
+                order.setOrder_price(results.getDouble(8));
+                orders.add(order);
+            }
+            return orders;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+    public boolean insertNewOrder(int product_id, int user_id, String order_date, String order_status) {
 
         String sql = "INSERT INTO " + TABLE_ORDERS + " ("
                 + COLUMN_ORDERS_PRODUCT_ID + ", "
                 + COLUMN_ORDERS_USER_ID + ", "
-                + COLUMN_ORDERS_SHIPPING_ADDRESS + ", "
-                + COLUMN_ORDERS_ORDER_EMAIL + ", "
                 + COLUMN_ORDERS_ORDER_DATE + ", "
                 + COLUMN_ORDERS_ORDER_STATUS +
-                ") VALUES (?, ?, ?, ?, ?, ?)";
+                ") VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, product_id);
             statement.setInt(2, user_id);
-            statement.setString(3, shipping_address);
-            statement.setString(4, order_email);
-            statement.setString(5, order_date);
-            statement.setString(6, order_status);
+            statement.setString(3, order_date);
+            statement.setString(4, order_status);
 
             statement.executeUpdate();
             return true;

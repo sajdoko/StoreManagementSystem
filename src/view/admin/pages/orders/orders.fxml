@@ -59,11 +59,6 @@
                             <PropertyValueFactory property="order_status"/>
                         </cellValueFactory>
                     </TableColumn>
-                    <TableColumn prefWidth="75.0" text="Order Email">
-                        <cellValueFactory>
-                            <PropertyValueFactory property="order_email"/>
-                        </cellValueFactory>
-                    </TableColumn>
                     <TableColumn prefWidth="75.0" text="Customer">
                         <cellValueFactory>
                             <PropertyValueFactory property="user_full_name"/>

@@ -2,6 +2,7 @@ package controller.user;
 
 import controller.UserSessionController;
 import controller.user.pages.UserHomeController;
+import controller.user.pages.UserOrdersController;
 import controller.user.pages.UserProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public class UserMainDashboardController implements Initializable {
 
     public void btnOrdersOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = loadFxmlPage("/view/user/pages/orders/orders.fxml");
+        UserOrdersController ordersController = fxmlLoader.getController();
+        ordersController.listOrders();
     }
 
     public void btnSettingsOnClick(ActionEvent actionEvent) {

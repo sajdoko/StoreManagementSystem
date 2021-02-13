@@ -1,5 +1,6 @@
 package controller.user.pages;
 
+import app.utils.HelperMethods;
 import controller.UserSessionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,10 +63,14 @@ public class UserProductsController {
                     {
                         buyButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
-                            btnBuyProduct(productData.getId(), productData.getName());
-                            System.out.println("Buy Product");
-                            System.out.println("product id: " + productData.getId());
-                            System.out.println("product name: " + productData.getName());
+                            if (productData.getQuantity() <= 0) {
+                                HelperMethods.alertBox("You can't buy this product because there is no stock!", "", "No Stock");
+                            } else {
+                                btnBuyProduct(productData.getId(), productData.getName());
+                                System.out.println("Buy Product");
+                                System.out.println("product id: " + productData.getId());
+                                System.out.println("product name: " + productData.getName());
+                            }
                         });
                     }
 
@@ -121,20 +126,19 @@ public class UserProductsController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             int user_id = UserSessionController.getUserId();
-            String shipping_address = UserSessionController.getUserFullName();
-            String order_email = UserSessionController.getUserEmail();
             String order_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             String order_status = "Received";
 
             Task<Boolean> addProductTask = new Task<Boolean>() {
                 @Override
                 protected Boolean call() {
-                    return Datasource.getInstance().insertNewOrder(product_id, user_id, shipping_address, order_email, order_date, order_status);
+                    return Datasource.getInstance().insertNewOrder(product_id, user_id, order_date, order_status);
                 }
             };
 
             addProductTask.setOnSucceeded(e -> {
                 if (addProductTask.valueProperty().get()) {
+                    Datasource.getInstance().decreaseStock(product_id);
                     System.out.println("Order placed!");
                 }
             });

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CssDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/view/resources/css/login.css" dialect="CLASSIC" />
+    <file url="file://$PROJECT_DIR$/src/resources/css/login.css" dialect="CLASSIC" />
   </component>
 </project>

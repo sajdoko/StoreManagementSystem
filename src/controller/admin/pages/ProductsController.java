@@ -165,7 +165,7 @@ public class ProductsController {
     private void btnAddProductOnClick() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
-            fxmlLoader.load(getClass().getResource("/view/user/pages/products/add-product.fxml").openStream());
+            fxmlLoader.load(getClass().getResource("/view/admin/pages/products/add-product.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,7 +248,7 @@ public class ProductsController {
     private void btnEditProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
-            fxmlLoader.load(getClass().getResource("/view/user/pages/products/edit-product.fxml").openStream());
+            fxmlLoader.load(getClass().getResource("/view/admin/pages/products/edit-product.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -265,7 +265,7 @@ public class ProductsController {
     private void btnViewProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
         try {
-            fxmlLoader.load(getClass().getResource("/view/user/pages/products/view-product.fxml").openStream());
+            fxmlLoader.load(getClass().getResource("/view/admin/pages/products/view-product.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

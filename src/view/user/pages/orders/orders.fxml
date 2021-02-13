@@ -10,7 +10,7 @@
 <?import javafx.geometry.Insets?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.user.pages.OrdersController"
+            fx:controller="controller.user.pages.UserOrdersController"
             prefHeight="800.0" prefWidth="1280.0">
 
     <BorderPane layoutX="238.0" layoutY="136.0" prefHeight="521.0" prefWidth="743.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

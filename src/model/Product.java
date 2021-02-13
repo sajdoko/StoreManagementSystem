@@ -6,14 +6,13 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Product {
 
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty name;
-    private SimpleStringProperty description;
-    private SimpleDoubleProperty price;
-    private SimpleIntegerProperty quantity;
-    private SimpleIntegerProperty category_id;
-    private SimpleStringProperty category;
-    private SimpleIntegerProperty nr_sales;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty name;
+    private final SimpleStringProperty description;
+    private final SimpleDoubleProperty price;
+    private final SimpleIntegerProperty quantity;
+    private final SimpleStringProperty category;
+    private final SimpleIntegerProperty nr_sales;
 
     public Product() {
         this.id = new SimpleIntegerProperty();
@@ -21,7 +20,6 @@ public class Product {
         this.description = new SimpleStringProperty();
         this.price = new SimpleDoubleProperty();
         this.quantity = new SimpleIntegerProperty();
-        this.category_id = new SimpleIntegerProperty();
         this.category = new SimpleStringProperty();
         this.nr_sales = new SimpleIntegerProperty();
     }
@@ -84,18 +82,6 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity.set(quantity);
-    }
-
-    public int getCategory_id() {
-        return category_id.get();
-    }
-
-    public SimpleIntegerProperty category_idProperty() {
-        return category_id;
-    }
-
-    public void setCategory_id(int category_id) {
-        this.category_id.set(category_id);
     }
 
     public String getCategory() {

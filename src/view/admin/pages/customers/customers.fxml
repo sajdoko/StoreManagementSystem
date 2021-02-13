@@ -35,7 +35,7 @@
             <center>
                 <TableView fx:id="tableCustomersPage" editable="true" prefHeight="663.0" prefWidth="1220.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="FullName">
+                        <TableColumn prefWidth="75.0" text="Name/Surname">
                             <cellValueFactory>
                                 <PropertyValueFactory property="fullname"/>
                             </cellValueFactory>

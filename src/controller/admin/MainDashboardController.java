@@ -3,6 +3,7 @@ package controller.admin;
 import controller.UserSessionController;
 import controller.admin.pages.CustomersController;
 import controller.admin.pages.HomeController;
+import controller.admin.pages.OrdersController;
 import controller.admin.pages.ProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,6 +62,9 @@ public class MainDashboardController implements Initializable {
 
     public void btnOrdersOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = loadFxmlPage("/view/admin/pages/orders/orders.fxml");
+
+        OrdersController orders = fxmlLoader.getController();
+        orders.listOrders();
     }
 
     public void btnCustomersOnClick(ActionEvent actionEvent) {

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.text.TextFlow?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controller.admin.pages.OrdersController"
@@ -40,13 +37,38 @@
             </GridPane>
         </top>
         <center>
-            <TableView fx:id="tblSellView" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TableView fx:id="tableOrdersPage" editable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                 <columns>
-                    <TableColumn fx:id="tblClmSellId" prefWidth="75.0" text="Name" />
-                    <TableColumn fx:id="tblClmProductId" prefWidth="75.0" text="Price" />
-                    <TableColumn fx:id="tblClmCustomerName" prefWidth="125.0" text="Quantity" />
-                    <TableColumn fx:id="tblClmSoldDate" prefWidth="75.0" text="Nr. Sales" />
-                    <TableColumn fx:id="tblClmPursrsPrice" prefWidth="75.0" text="Actions" />
+                    <TableColumn prefWidth="75.0" text="Product Name">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="product_name"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="Price Paid">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="order_price"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="Order Date">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="order_date"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="Order Status">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="order_status"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="Order Email">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="order_email"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="Customer">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="user_full_name"/>
+                        </cellValueFactory>
+                    </TableColumn>
                 </columns>
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

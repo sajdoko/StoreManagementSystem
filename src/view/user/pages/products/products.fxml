@@ -5,7 +5,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.ProductsController">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.user.pages.UserProductsController">
    <StackPane fx:id="productsContent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
       
@@ -29,13 +29,12 @@
                           <TextField fx:id="fieldProductsSearch" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0" promptText="search by product name or description" />
                           <Button layoutX="300.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnProductsSearchOnAction" prefHeight="26.0" text="Search" />
                       </AnchorPane>
-                       <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#btnAddProductOnClick" prefHeight="26.0" text="Add New Product" textAlignment="RIGHT" GridPane.columnIndex="1" />
                   </GridPane>
               </top>
               <center>
                   <TableView fx:id="tableProductsPage" editable="true" prefHeight="663.0" prefWidth="1220.0">
                       <columns>
-                          <TableColumn prefWidth="75.0" text="Name">
+                          <TableColumn prefWidth="75.0" text="Product Name">
                               <cellValueFactory>
                                   <PropertyValueFactory property="name" />
                               </cellValueFactory>
@@ -45,7 +44,7 @@
                                   <PropertyValueFactory property="price" />
                               </cellValueFactory>
                           </TableColumn>
-                          <TableColumn prefWidth="125.0" text="Stock">
+                          <TableColumn prefWidth="125.0" text="Quantity">
                               <cellValueFactory>
                                   <PropertyValueFactory property="quantity" />
                               </cellValueFactory>

@@ -1,7 +1,8 @@
 package controller.user;
 
 import controller.UserSessionController;
-import controller.user.pages.HomeController;
+import controller.user.pages.UserHomeController;
+import controller.user.pages.UserProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainDashboardController implements Initializable {
+public class UserMainDashboardController implements Initializable {
     public Button btnHome;
     public Button btnProducts;
     public Button btnOrders;
@@ -35,7 +36,7 @@ public class MainDashboardController implements Initializable {
 
     public void btnHomeOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = loadFxmlPage("/view/user/pages/home/home.fxml");
-        HomeController homeController = fxmlLoader.getController();
+        UserHomeController homeController = fxmlLoader.getController();
         homeController.getDashboardProdCount();
         homeController.getDashboardCostCount();
     }
@@ -46,6 +47,14 @@ public class MainDashboardController implements Initializable {
 
     public void btnSettingsOnClick(ActionEvent actionEvent) {
         FXMLLoader fxmlLoader = loadFxmlPage("/view/user/pages/settings/settings.fxml");
+    }
+
+    public void btnProductsOnClick(ActionEvent actionEvent) {
+
+        FXMLLoader fxmlLoader = loadFxmlPage("/view/user/pages/products/products.fxml");
+
+        UserProductsController userController = fxmlLoader.getController();
+        userController.listProducts();
     }
 
     public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {
@@ -87,7 +96,7 @@ public class MainDashboardController implements Initializable {
         lblUsrName.setText(UserSessionController.getUserFullName());
 
         FXMLLoader fxmlLoader = loadFxmlPage("/view/user/pages/home/home.fxml");
-        HomeController homeController = fxmlLoader.getController();
+        UserHomeController homeController = fxmlLoader.getController();
         homeController.getDashboardProdCount();
         homeController.getDashboardCostCount();
     }

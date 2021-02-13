@@ -5,12 +5,12 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Customer {
 
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty fullname;
-    private SimpleStringProperty email;
-    private SimpleStringProperty username;
-    private SimpleIntegerProperty orders;
-    private SimpleStringProperty status;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty fullname;
+    private final SimpleStringProperty email;
+    private final SimpleStringProperty username;
+    private final SimpleIntegerProperty orders;
+    private final SimpleStringProperty status;
 
     public Customer() {
         this.id = new SimpleIntegerProperty();

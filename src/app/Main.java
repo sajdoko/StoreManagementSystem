@@ -16,7 +16,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
 //        Parent root = FXMLLoader.load(getClass().getResource("../view/main-dashboard.fxml"));
         primaryStage.setTitle("Store Manager");
-        primaryStage.getIcons().add(new Image("/resources/img/brand/fav.png"));
+        primaryStage.getIcons().add(new Image("/view/resources/img/brand/fav.png"));
         primaryStage.setScene(new Scene(root, 1280, 800));
         primaryStage.show();
 

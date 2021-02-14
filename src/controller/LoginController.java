@@ -2,16 +2,13 @@ package controller;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 import app.utils.HelperMethods;
 import app.utils.PasswordUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
@@ -19,7 +16,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
-public class LoginController implements Initializable {
+/**
+ * This class handles the login operations of the application.
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
+public class LoginController {
     @FXML
     public TextField usernameField;
     @FXML
@@ -28,6 +30,17 @@ public class LoginController implements Initializable {
     Stage dialogStage = new Stage();
     Scene scene;
 
+    /**
+     * This method handles the login button action event.
+     * It gets the user entered data and makes the proper validations.
+     * If the entered details are correct, it creates an new UserSessionController instance
+     * and transitions the user screen to the appropriate dashboard.
+     * @param event             Accepts ActionEvent.
+     * @throws IOException      If an input or output exception occurred.
+     * @throws SQLException     If an SQL error occurred.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     public void handleLoginButtonAction(ActionEvent event) throws SQLException, IOException {
         String username = usernameField.getText();
         String providedPassword = passwordField.getText();
@@ -69,12 +82,14 @@ public class LoginController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-
-    }
-
+    /**
+     * This method handles the register button action event.
+     * It transfers the user screen to the registration view.
+     * @param actionEvent       Accepts ActionEvent.
+     * @throws IOException      If an input or output exception occurred.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     public void handleRegisterButtonAction(ActionEvent actionEvent) throws IOException {
         Stage dialogStage;
         Node node = (Node) actionEvent.getSource();

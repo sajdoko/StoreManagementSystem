@@ -4,12 +4,25 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles all the queries to the database.
+ * It is constructed with the Singleton Design Pattern.
+ *
+ * This pattern involves a single class which is responsible to create an object while making sure that only single
+ * object gets created. This class provides a way to access its only object which can be accessed directly without
+ * need to instantiate the object of the class.
+ *
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
 public class Datasource {
 
     public static final String DB_NAME = "store_manager.sqlite";
 
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:src\\app\\db\\" + DB_NAME;
 
+    // All the database tables and their columns are stored as String variables.
+    // This to facilitate later changing of table/columns names, if needed.
     public static final String TABLE_PRODUCTS = "products";
     public static final String COLUMN_PRODUCTS_ID = "id";
     public static final String COLUMN_PRODUCTS_NAME = "name";
@@ -46,17 +59,31 @@ public class Datasource {
 
     private Connection conn;
 
-
+    /**
+     * Create an object of Datasource
+     */
     private static final Datasource instance = new Datasource();
 
-    private Datasource() {
+    /**
+     * Make the constructor private so that this class cannot be instantiated
+     */
+    private Datasource() { }
 
-    }
-
+    /**
+     * Get the only object available
+     * @return      Datasource instance.
+     */
     public static Datasource getInstance() {
         return instance;
     }
 
+    /**
+     * This method makes the connection to the database and assigns the Connection to the conn variable.
+     * It is designed to be called in the application's Main method.
+     * @return boolean      Returns true or false.
+     * @author              Sajmir Doko
+     * @since               1.0.0
+     */
     public boolean open() {
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
@@ -67,6 +94,12 @@ public class Datasource {
         }
     }
 
+    /**
+     * This method closes the connection to the database.
+     * It is designed to be called in the application's Main method.
+     * @author      Sajmir Doko
+     * @since       1.0.0
+     */
     public void close() {
         try {
             if (conn != null) {
@@ -78,6 +111,11 @@ public class Datasource {
     }
 
     // BEGIN PRODUCTS QUERIES
+    /**
+     * This method verifies if the entered user password is the same as the one stored in the database.
+     * @param sortOrder     Results sort order.
+     * @return List         Returns Product array list.
+     */
     public List<Product> getAllProducts(int sortOrder) {
 
         StringBuilder queryProducts = queryProducts();

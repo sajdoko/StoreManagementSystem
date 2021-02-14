@@ -1,16 +1,16 @@
 package controller;
 
-//singleton design pattern
 public final class UserSessionController {
 
     private static int userId;
-    private static UserSessionController instance;
     private static String userFullName;
     private static String userName;
     private static String userEmail;
     private static String userStatus;
     private static int userAdmin;
 
+    // public instance
+    private static UserSessionController instance;
 
     public static String getUserFullName() {
         return userFullName;

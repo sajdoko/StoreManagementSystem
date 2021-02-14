@@ -9,6 +9,14 @@ import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+    /**
+     * This class provides helper methods to:
+     * Encode secure user password into Base64;
+     * Generate Salt value;
+     * Use password-based encryption to encrypt user password;
+     * Verify entered password.
+     * {@link}          https://www.appsdeveloperblog.com/encrypt-user-password-example-java/
+     */
 public class PasswordUtils {
 
     private static final Random RANDOM = new SecureRandom();
@@ -16,6 +24,13 @@ public class PasswordUtils {
     private static final int ITERATIONS = 10000;
     private static final int KEY_LENGTH = 256;
 
+    /**
+     * This method generates the salt.
+     * The generated value can be stored in the database.
+     * {@link}              https://www.appsdeveloperblog.com/encrypt-user-password-example-java/
+     * @param length        Accepts an integer as the length of Salt to be generated.
+     * @return String       Returns string with the generated salt.
+     */
     public static String getSalt(int length) {
         StringBuilder returnValue = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -24,6 +39,14 @@ public class PasswordUtils {
         return new String(returnValue);
     }
 
+    /**
+     * This method generates the salt.
+     * The generated value can be stored in the database.
+     * {@link}              https://www.appsdeveloperblog.com/encrypt-user-password-example-java/
+     * @param password      User entered password value.
+     * @param salt          Generated salt value.
+     * @return byte[]       Returns byte array.
+     */
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
         Arrays.fill(password, Character.MIN_VALUE);
@@ -37,6 +60,13 @@ public class PasswordUtils {
         }
     }
 
+    /**
+     * This method generates the secure password.
+     * {@link}              https://www.appsdeveloperblog.com/encrypt-user-password-example-java/
+     * @param password      User entered password value.
+     * @param salt          Generated salt value.
+     * @return String       Returns the secure password string.
+     */
     public static String generateSecurePassword(String password, String salt) {
         String returnValue = null;
 
@@ -47,6 +77,14 @@ public class PasswordUtils {
         return returnValue;
     }
 
+    /**
+     * This method verifies if the entered user password is the same as the one stored in the database.
+     * {@link}                  https://www.appsdeveloperblog.com/encrypt-user-password-example-java/
+     * @param providedPassword  User entered password value.
+     * @param securedPassword   Previously generated and saved password on the database.
+     * @param salt              Previously generated and saved salt value.
+     * @return boolean          Returns true or false.
+     */
     public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt) {
         boolean returnValue = false;
 

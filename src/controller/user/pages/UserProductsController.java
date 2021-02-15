@@ -7,20 +7,21 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 import model.Datasource;
 import model.Product;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+/**
+ * This class handles the users products page.
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
 public class UserProductsController {
 
 
@@ -28,11 +29,14 @@ public class UserProductsController {
     public TextField fieldProductsSearch;
 
     @FXML
-    private StackPane productsContent;
-
-    @FXML
     private TableView<Product> tableProductsPage;
 
+    /**
+     * This method lists all the product to the view table.
+     * It starts a new Task, gets all the products from the database then bind the results to the view.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     public void listProducts() {
 
@@ -49,6 +53,11 @@ public class UserProductsController {
 
     }
 
+    /**
+     * This private method adds the action buttons to the table rows.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void addActionButtonsToTable() {
         TableColumn colBtnBuy = new TableColumn("Actions");
@@ -101,6 +110,12 @@ public class UserProductsController {
 
     }
 
+    /**
+     * This private method handles the products search functionality.
+     * It creates a new task, gets the search results from the database and binds them to the view table.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnProductsSearchOnAction() {
         Task<ObservableList<Product>> searchProductsTask = new Task<ObservableList<Product>>() {
@@ -116,6 +131,13 @@ public class UserProductsController {
     }
 
 
+    /**
+     * This private method handles the buy product functionality.
+     * @param product_id        Product id.
+     * @param product_name      Product name.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnBuyProduct(int product_id, String product_name) {
 
@@ -124,27 +146,29 @@ public class UserProductsController {
         alert.setTitle("Buy product?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            int user_id = UserSessionController.getUserId();
-            String order_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            String order_status = "Received";
+        if (result.isPresent()) {
+            if (result.get() == ButtonType.OK) {
+                int user_id = UserSessionController.getUserId();
+                String order_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+                String order_status = "Received";
 
-            Task<Boolean> addProductTask = new Task<Boolean>() {
-                @Override
-                protected Boolean call() {
-                    return Datasource.getInstance().insertNewOrder(product_id, user_id, order_date, order_status);
-                }
-            };
+                Task<Boolean> addProductTask = new Task<Boolean>() {
+                    @Override
+                    protected Boolean call() {
+                        return Datasource.getInstance().insertNewOrder(product_id, user_id, order_date, order_status);
+                    }
+                };
 
-            addProductTask.setOnSucceeded(e -> {
-                if (addProductTask.valueProperty().get()) {
-                    Datasource.getInstance().decreaseStock(product_id);
-                    System.out.println("Order placed!");
-                }
-            });
+                addProductTask.setOnSucceeded(e -> {
+                    if (addProductTask.valueProperty().get()) {
+                        Datasource.getInstance().decreaseStock(product_id);
+                        System.out.println("Order placed!");
+                    }
+                });
 
-            new Thread(addProductTask).start();
-            System.out.println(product_id);
+                new Thread(addProductTask).start();
+                System.out.println(product_id);
+            }
         }
 
     }

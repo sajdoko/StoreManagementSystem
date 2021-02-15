@@ -33,7 +33,7 @@
             </Label>
         </HBox>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-            <Label fx:id="customersCount" alignment="CENTER_RIGHT" text="0">
+            <Label fx:id="ordersCount" alignment="CENTER_RIGHT" text="0">
                 <font>
                     <Font size="50.0"/>
                 </font>

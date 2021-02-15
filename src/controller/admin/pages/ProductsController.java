@@ -19,8 +19,12 @@ import model.Product;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * This class handles the admin products page.
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
 public class ProductsController {
-
 
     @FXML
     public TextField fieldProductsSearch;
@@ -40,13 +44,17 @@ public class ProductsController {
     public GridPane formEditProductView;
     @FXML
     public TextField fieldAddProductNameEdit;
-
     @FXML
     private StackPane productsContent;
-
     @FXML
     private TableView<Product> tableProductsPage;
 
+    /**
+     * This method lists all the product to the view table.
+     * It starts a new Task, gets all the products from the database then bind the results to the view.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     public void listProducts() {
 
@@ -63,6 +71,11 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method adds the action buttons to the table rows.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void addActionButtonsToTable() {
         TableColumn colBtnEdit = new TableColumn("Actions");
@@ -147,6 +160,12 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method handles the products search functionality.
+     * It creates a new task, gets the search results from the database and binds them to the view table.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnProductsSearchOnAction() {
         Task<ObservableList<Product>> searchProductsTask = new Task<ObservableList<Product>>() {
@@ -161,6 +180,11 @@ public class ProductsController {
         new Thread(searchProductsTask).start();
     }
 
+    /**
+     * This private method loads the add product view page.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnAddProductOnClick() {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -176,6 +200,12 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method handles the add product button functionality.
+     * It validates user input fields and adds the values to the database.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnAddProductOnAction() {
         if (isAddProductInputsValid()) {
@@ -203,6 +233,12 @@ public class ProductsController {
         }
     }
 
+    /**
+     * This private method validates the user input fields for the product.
+     * @return boolean          Returns true or false.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private boolean isAddProductInputsValid() {
         // TODO
@@ -244,6 +280,12 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method loads the edit product view page.
+     * @param product_id        Product id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnEditProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -261,6 +303,12 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method loads single add product view page.
+     * @param product_id        Product id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnViewProduct(int product_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -278,6 +326,12 @@ public class ProductsController {
 
     }
 
+    /**
+     * This private method gets the single product data from the database and binds them to the view.
+     * @param product_id        Product id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void fillEditProduct(int product_id) {
 
@@ -289,7 +343,6 @@ public class ProductsController {
             }
         };
         fillProductTask.setOnSucceeded(e -> {
-//            fieldAddProductNameEdit.setText("test");
             System.out.println("pr name:" + fillProductTask.valueProperty().getValue().get(0).getName());
             // TODO
             //  fieldAddProductName.setText("test");

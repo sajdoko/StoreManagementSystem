@@ -17,16 +17,26 @@ import model.Datasource;
 import java.io.IOException;
 import java.util.Optional;
 
+/**
+ * This class handles the admin customers page.
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
 public class CustomersController {
+
     @FXML
     public TextField fieldCustomersSearch;
-
     @FXML
     private StackPane customersContent;
-
     @FXML
     private TableView<Customer> tableCustomersPage;
 
+    /**
+     * This method lists all the customers to the view table.
+     * It starts a new Task, gets all the simple users from the database then bind the results to the view.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     public void listCustomers() {
 
@@ -43,6 +53,11 @@ public class CustomersController {
 
     }
 
+    /**
+     * This private method adds the action buttons to the table rows.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void addActionButtonsToTable() {
         TableColumn colBtnEdit = new TableColumn("Actions");
@@ -127,7 +142,13 @@ public class CustomersController {
 
     }
 
-    public void btnCustomersSearchOnAction(ActionEvent actionEvent) {
+    /**
+     * This private method handles the customers search functionality.
+     * It creates a new task, gets the search results from the database and binds them to the view table.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
+    public void btnCustomersSearchOnAction() {
         Task<ObservableList<Customer>> searchCustomersTask = new Task<ObservableList<Customer>>() {
             @Override
             protected ObservableList<Customer> call() {
@@ -140,6 +161,12 @@ public class CustomersController {
         new Thread(searchCustomersTask).start();
     }
 
+    /**
+     * This private method loads the edit customer view page.
+     * @param customer_id       Customer id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnEditCustomer(int customer_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -157,6 +184,12 @@ public class CustomersController {
 
     }
 
+    /**
+     * This private method loads the single customer view page.
+     * @param customer_id       Customer id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void btnViewCustomer(int customer_id) {
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -174,6 +207,12 @@ public class CustomersController {
 
     }
 
+    /**
+     * This private method gets the single customer data from the database and binds them to the view.
+     * @param customer_id       Customer id.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     @FXML
     private void fillEditCustomer(int customer_id) {
 

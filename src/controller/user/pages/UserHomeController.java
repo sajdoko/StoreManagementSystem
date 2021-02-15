@@ -1,14 +1,25 @@
 package controller.user.pages;
 
+import controller.UserSessionController;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 import model.Datasource;
 
+/**
+ * This class handles the users home page.
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
 public class UserHomeController {
 
     public Label productsCount;
-    public Label customersCount;
+    public Label ordersCount;
 
+    /**
+     * This method gets the products count for the user dashboard and sets it to the productsCount label.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
     public void getDashboardProdCount() {
         Task<Integer> getDashProdCount = new Task<Integer>() {
             @Override
@@ -24,22 +35,24 @@ public class UserHomeController {
         new Thread(getDashProdCount).start();
     }
 
-    public void getDashboardCostCount() {
-        Task<Integer> getDashCostCount = new Task<Integer>() {
+    /**
+     * This method gets the orders count for the user dashboard and sets it to the ordersCount label.
+     * @author                  Sajmir Doko
+     * @since                   1.0.0
+     */
+    public void getDashboardOrdersCount() {
+        Task<Integer> getDashOrderCount = new Task<Integer>() {
             @Override
             protected Integer call() {
-                return Datasource.getInstance().countAllCustomers();
+                return Datasource.getInstance().countUserOrders(UserSessionController.getUserId());
             }
         };
 
-        getDashCostCount.setOnSucceeded(e -> {
-            customersCount.setText(String.valueOf(getDashCostCount.valueProperty().getValue()));
+        getDashOrderCount.setOnSucceeded(e -> {
+            ordersCount.setText(String.valueOf(getDashOrderCount.valueProperty().getValue()));
         });
 
-        new Thread(getDashCostCount).start();
+        new Thread(getDashOrderCount).start();
     }
 
-    // TODO
-    //  Add best sellers
-    //  Add latest sold products
 }

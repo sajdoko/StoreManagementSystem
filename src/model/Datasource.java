@@ -112,7 +112,7 @@ public class Datasource {
 
     // BEGIN PRODUCTS QUERIES
     /**
-     * This method verifies if the entered user password is the same as the one stored in the database.
+     * This method get all the products from the database.
      * @param sortOrder     Results sort order.
      * @return List         Returns Product array list.
      */
@@ -152,11 +152,16 @@ public class Datasource {
             return null;
         }
     }
+
+    /**
+     * This method get one product id from the database based on the provided product_id.
+     * @param product_id    Product id.
+     * @return List         Returns Product array list.
+     */
     public List<Product> getOneProduct(int product_id) {
 
         StringBuilder queryProducts = queryProducts();
-        queryProducts.append(" WHERE " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + " = ?");
-//        System.out.println(queryProducts.toString());
+        queryProducts.append(" WHERE " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + " = ? LIMIT 1");
         try (PreparedStatement statement = conn.prepareStatement(String.valueOf(queryProducts))) {
             statement.setInt(1, product_id);
             ResultSet results = statement.executeQuery();
@@ -179,11 +184,15 @@ public class Datasource {
             return null;
         }
     }
+
+    /**
+     * This method get one product id from the database based on the provided product_id.
+     * @param searchString  String to search product name or product description.
+     * @param sortOrder     Results sort order.
+     * @return List         Returns Product array list.
+     */
     public List<Product> searchProducts(String searchString, int sortOrder) {
-
-
         StringBuilder queryProducts = queryProducts();
-
         queryProducts.append(" WHERE (" + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_NAME + " LIKE ? OR " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_DESCRIPTION + " LIKE ?)");
 
         if (sortOrder != ORDER_BY_NONE) {
@@ -220,6 +229,11 @@ public class Datasource {
             return null;
         }
     }
+
+    /**
+     * This private method returns an default query for the products.
+     * @return StringBuilder
+     */
     private StringBuilder queryProducts() {
         return new StringBuilder("SELECT " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ", " +
@@ -235,6 +249,12 @@ public class Datasource {
                 " = " + TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID
         );
     }
+
+    /**
+     * This method one product based on the productId provided.
+     * @param productId     Product id.
+     * @return boolean      Returns true or false.
+     */
     public boolean deleteSingleProduct(int productId) {
         String sql = "DELETE FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTS_ID + " = ?";
 
@@ -248,6 +268,16 @@ public class Datasource {
             return false;
         }
     }
+
+    /**
+     * This method insert one product to the database.
+     * @param name          Product id.
+     * @param description   Product id.
+     * @param price         Product id.
+     * @param quantity      Product id.
+     * @param category_id   Product id.
+     * @return boolean      Returns true or false.
+     */
     public boolean insertNewProduct(String name, String description, int price, int quantity, int category_id) {
 
         String sql = "INSERT INTO " + TABLE_PRODUCTS + " ("
@@ -272,6 +302,11 @@ public class Datasource {
             return false;
         }
     }
+
+    /**
+     * This method decreases the product stock by one based on the provided product_id.
+     * @param product_id    Product id.
+     */
     public void decreaseStock(int product_id) {
 
         String sql = "UPDATE " + TABLE_PRODUCTS + " SET " + COLUMN_PRODUCTS_QUANTITY + " = " + COLUMN_PRODUCTS_QUANTITY + " - 1 WHERE " + COLUMN_PRODUCTS_ID + " = ?";
@@ -646,6 +681,23 @@ public class Datasource {
                  " WHERE " + COLUMN_USERS_ADMIN + "= 0"
         )
         ) {
+            if (results.next()) {
+                return results.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return 0;
+        }
+    }
+    public Integer countUserOrders(int user_id) {
+        StringBuilder queryProducts = new StringBuilder("SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + COLUMN_ORDERS_USER_ID + "= 0");
+
+        try (PreparedStatement statement = conn.prepareStatement(String.valueOf(queryProducts))) {
+            statement.setInt(1, user_id);
+            ResultSet results = statement.executeQuery();
+
             if (results.next()) {
                 return results.getInt(1);
             } else {

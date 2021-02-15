@@ -134,14 +134,13 @@ public class RegisterController {
                         err.printStackTrace();
                     }
                     assert user != null;
-                    new UserSessionController(
-                            (int) user.getId(),
-                            user.getFullname(),
-                            user.getUsername(),
-                            user.getEmail(),
-                            user.getAdmin(),
-                            user.getStatus()
-                    );
+
+                    UserSessionController.setUserId((int) user.getId());
+                    UserSessionController.setUserFullName(user.getFullname());
+                    UserSessionController.setUserName(user.getUsername());
+                    UserSessionController.setUserEmail(user.getEmail());
+                    UserSessionController.setUserAdmin(user.getAdmin());
+                    UserSessionController.setUserStatus(user.getStatus());
 
                     Node node = (Node) actionEvent.getSource();
                     dialogStage = (Stage) node.getScene().getWindow();

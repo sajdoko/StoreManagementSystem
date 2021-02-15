@@ -56,14 +56,12 @@ public class LoginController {
                 boolean passwordMatch = PasswordUtils.verifyUserPassword(providedPassword, user.getPassword(), user.getSalt());
 
                 if (passwordMatch) {
-                    new UserSessionController(
-                            (int) user.getId(),
-                            user.getFullname(),
-                            user.getUsername(),
-                            user.getEmail(),
-                            user.getAdmin(),
-                            user.getStatus()
-                    );
+                    UserSessionController.setUserId((int) user.getId());
+                    UserSessionController.setUserFullName(user.getFullname());
+                    UserSessionController.setUserName(user.getUsername());
+                    UserSessionController.setUserEmail(user.getEmail());
+                    UserSessionController.setUserAdmin(user.getAdmin());
+                    UserSessionController.setUserStatus(user.getStatus());
 
                     Node node = (Node) event.getSource();
                     dialogStage = (Stage) node.getScene().getWindow();

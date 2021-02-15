@@ -1,6 +1,19 @@
 package controller;
 
-public final class UserSessionController {
+
+/**
+ * This class acts as an user session.
+ * It stores logged in user details.
+ * It is constructed with the Singleton Design Pattern.
+ *
+ * This pattern involves a single class which is responsible to create an object while making sure that only single
+ * object gets created. This class provides a way to access its only object which can be accessed directly without
+ * need to instantiate the object of the class.
+ *
+ * @author      Sajmir Doko
+ * @since       1.0.0
+ */
+public class UserSessionController {
 
     private static int userId;
     private static String userFullName;
@@ -9,8 +22,24 @@ public final class UserSessionController {
     private static String userStatus;
     private static int userAdmin;
 
-    // public instance
-    private static UserSessionController instance;
+    /**
+     * Create an object of UserSessionController
+     */
+    private static final UserSessionController instance = new UserSessionController();
+
+    /**
+     * Make the constructor private so that this class cannot be instantiated
+     */
+    private UserSessionController() { }
+
+    /**
+     * Get the only object available
+     * @return      UserSessionController instance.
+     */
+    public static UserSessionController getInstance() {
+        return instance;
+    }
+
 
     public static String getUserFullName() {
         return userFullName;
@@ -36,20 +65,28 @@ public final class UserSessionController {
         return userAdmin;
     }
 
-    public UserSessionController(int userId, String userFullName, String userName, String userEmail, int userAdmin, String userStatus) {
-        UserSessionController.userId = userId;
+    public static void setUserFullName(String userFullName) {
         UserSessionController.userFullName = userFullName;
+    }
+
+    public static void setUserName(String userName) {
         UserSessionController.userName = userName;
+    }
+
+    public static void setUserEmail(String userEmail) {
         UserSessionController.userEmail = userEmail;
-        UserSessionController.userAdmin = userAdmin;
+    }
+
+    public static void setUserStatus(String userStatus) {
         UserSessionController.userStatus = userStatus;
     }
 
-    public static UserSessionController getInstance(int userId, String userFullName, String userName, String userEmail, int userAdmin, String userStatus) {
-        if (instance == null) {
-            instance = new UserSessionController(userId, userFullName, userName, userEmail, userAdmin, userStatus);
-        }
-        return instance;
+    public static void setUserAdmin(int userAdmin) {
+        UserSessionController.userAdmin = userAdmin;
+    }
+
+    public static void setUserId(int userId) {
+        UserSessionController.userId = userId;
     }
 
     public static void cleanUserSession() {

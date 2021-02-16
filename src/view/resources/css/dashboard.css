@@ -1,27 +1,92 @@
-.menuButton{
-    -fx-border-width: 0px 0px 0px 5px;
-    -fx-border-radius: 0px;
-    -fx-background-radius: 0px;
-    -fx-text-fill: #4E4F52;
-    -fx-background-color: #e5e5e5;
-}
+@import "bootstrap3.css";
 
-.menuButton:hover{
-    -fx-background-color: #f3f3f3;
-    /*-fx-text-fill: white;*/
-}
+/*.root {*/
+/*    -fx-focus-color: transparent;*/
+/*    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;*/
+/*    -fx-background-insets: 0, 1, 2;*/
+/*    -fx-background-radius: 5, 4, 3;*/
+/*}*/
 
-#dashHead{
-    -fx-background-color: #e5e5e5;
-}
-#acDashBord{
-    -fx-background-color:#e5e5e5;
-}
+/*.menuButton{*/
+/*    -fx-border-width: 0px 0px 0px 5px;*/
+/*    -fx-border-radius: 0px;*/
+/*    -fx-background-radius: 0px;*/
+/*    -fx-text-fill: #4E4F52;*/
+/*    -fx-background-color: #e5e5e5;*/
+/*}*/
 
-.button-round-red {
-    -fx-background-color: #be1d00;
-    -fx-text-fill: white;
-}
-.button-round-red:hover {
-    -fx-background-color: #8c1b01;
-}
+/*.menuButton:hover{*/
+/*    -fx-background-color: #f3f3f3;*/
+/*    !*-fx-text-fill: white;*!*/
+/*}*/
+
+/*#dashHead{*/
+/*    -fx-background-color: #e5e5e5;*/
+/*}*/
+/*#acDashBord{*/
+/*    -fx-background-color:#e5e5e5;*/
+/*}*/
+
+/*.button-round-red {*/
+/*    -fx-background-color: #be1d00;*/
+/*    -fx-text-fill: white;*/
+/*}*/
+/*.button-round-red:hover {*/
+/*    -fx-background-color: #8c1b01;*/
+/*}*/
+
+/*.table-view {*/
+/*    -fx-base: white;*/
+/*    -fx-control-inner-background: white;*/
+/*    -fx-background-color: #c7c7c7;*/
+/*    -fx-table-cell-border-color: transparent;*/
+/*    -fx-table-header-border-color: transparent;*/
+/*    -fx-padding: 2;*/
+/*}*/
+
+/*.table-view .column-header-background {*/
+/*    -fx-background-color: #2AABE4;*/
+/*}*/
+
+/*.table-view .column-header, .table-view .filler {*/
+/*    -fx-size: 35;*/
+/*    -fx-border-width: 0 0 0 0;*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-color:*/
+/*            transparent*/
+/*            transparent*/
+/*            derive(-fx-base, 80%)*/
+/*            transparent;*/
+/*    -fx-border-insets: 0 10 1 0;*/
+/*}*/
+
+/*.table-view .column-header .label {*/
+/*    !*-fx-font-size: 12px;*!*/
+/*    -fx-text-fill: white;*/
+/*    -fx-alignment: center-left;*/
+/*}*/
+
+/*.table-view:focused .table-row-cell:filled:focused:selected {*/
+/*    -fx-background-color: -fx-focus-color;*/
+/*}*/
+
+/*.table-cell {*/
+/*    -fx-cell-size: 3.0em;*/
+/*    -fx-padding: 0.1em;*/
+/*    -fx-alignment: bottom-left;*/
+/*}*/
+
+/*.table-row-cell:empty {*/
+/*    -fx-background-color: #f8f8f8;*/
+/*    -fx-base: transparent;*/
+/*    -fx-control-inner-background: transparent;*/
+/*    -fx-table-cell-border-color: transparent;*/
+/*    -fx-table-header-border-color: transparent;*/
+/*    -fx-padding: 0;*/
+/*}*/
+
+/*.table-row-cell:empty .table-cell {*/
+/*    -fx-border-width: 0px;*/
+/*}*/
+
+

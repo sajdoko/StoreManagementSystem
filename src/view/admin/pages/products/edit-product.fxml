@@ -27,13 +27,13 @@
                     </rowConstraints>
                     <children>
                         <Label text="Product Name" />
-                        <TextField fx:id="fieldAddProductNameEdit" GridPane.columnIndex="1" />
-                        <Label text="Product Price" GridPane.columnIndex="3" />
-                        <TextField fx:id="fieldAddProductPrice" GridPane.columnIndex="4" />
+                        <TextField fx:id="fieldEditProductNameEdit" GridPane.columnIndex="1" />
+                        <Label fx:id="fieldEditProductPrice1" text="Product Price" GridPane.columnIndex="3" />
+                        <TextField fx:id="fieldEditProductPrice" GridPane.columnIndex="4" />
                         <Label text="Quantity" GridPane.rowIndex="1" />
-                        <TextField fx:id="fieldAddProductQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="fieldEditProductQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Category" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="fieldAddProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <ComboBox fx:id="fieldEditProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="1" />
@@ -43,15 +43,15 @@
                             </items>
                         </ComboBox>
                         <Label text="Description" GridPane.rowIndex="2" />
-                        <TextArea fx:id="fieldAddProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextArea fx:id="fieldEditProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                         <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product added!" visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" onAction="#btnAddProductOnAction" text="Add Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" onAction="#btnAddProductOnAction" text="Edit Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
             </center>
             <top>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add new product" BorderPane.alignment="CENTER_LEFT">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit new product" BorderPane.alignment="CENTER_LEFT">
                     <font>
                         <Font size="24.0" />
                     </font>

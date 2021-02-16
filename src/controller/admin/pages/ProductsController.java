@@ -43,7 +43,7 @@ public class ProductsController {
     @FXML
     public GridPane formEditProductView;
     @FXML
-    public TextField fieldAddProductNameEdit;
+    private TextField fieldEditProductPrice;
     @FXML
     private StackPane productsContent;
     @FXML
@@ -102,6 +102,7 @@ public class ProductsController {
                     {
                         editButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
+
                             btnEditProduct(productData.getId());
                             System.out.println("Edit Product");
                             System.out.println("product id: " + productData.getId());
@@ -298,8 +299,8 @@ public class ProductsController {
         AnchorPane root = fxmlLoader.getRoot();
         productsContent.getChildren().clear();
         productsContent.getChildren().add(root);
-
         fillEditProduct(product_id);
+
 
     }
 
@@ -334,22 +335,11 @@ public class ProductsController {
      */
     @FXML
     private void fillEditProduct(int product_id) {
-
-        Task<ObservableList<Product>> fillProductTask = new Task<ObservableList<Product>>() {
-            @Override
-            protected ObservableList<Product> call() {
-                return FXCollections.observableArrayList(
-                        Datasource.getInstance().getOneProduct(product_id));
-            }
-        };
-        fillProductTask.setOnSucceeded(e -> {
-            System.out.println("pr name:" + fillProductTask.valueProperty().getValue().get(0).getName());
-            // TODO
-            //  fieldAddProductName.setText("test");
-            //  fieldAddProductName.setText(fillProductTask.valueProperty().getValue().get(0).getName());
-        });
-
-        new Thread(fillProductTask).start();
+//        ObservableList<Product> fillProductTask = FXCollections.observableArrayList(Datasource.getInstance().getOneProduct(product_id));
+//
+////
+////        System.out.println("pr name:" + fillProductTask.valueProperty().getValue().get(0).getName());
+//        fieldEditProductPrice.setText("hi");
     }
 
 }

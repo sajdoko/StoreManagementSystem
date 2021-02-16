@@ -38,7 +38,7 @@
                     <Font size="50.0"/>
                 </font>
             </Label>
-            <Label text="Customers">
+            <Label text="Orders">
                 <font>
                     <Font size="30.0"/>
                 </font>

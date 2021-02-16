@@ -1,95 +1,59 @@
 package model;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 public class Customer {
 
-    private final SimpleIntegerProperty id;
-    private final SimpleStringProperty fullname;
-    private final SimpleStringProperty email;
-    private final SimpleStringProperty username;
-    private final SimpleIntegerProperty orders;
-    private final SimpleStringProperty status;
-
-    public Customer() {
-        this.id = new SimpleIntegerProperty();
-        this.fullname = new SimpleStringProperty();
-        this.email = new SimpleStringProperty();
-        this.username = new SimpleStringProperty();
-        this.orders = new SimpleIntegerProperty();
-        this.status = new SimpleStringProperty();
-    }
+    private int id;
+    private String fullname;
+    private String email;
+    private String username;
+    private int orders;
+    private String status;
 
     public int getId() {
-        return id.get();
-    }
-
-    public SimpleIntegerProperty idProperty() {
         return id;
     }
 
     public void setId(int id) {
-        this.id.set(id);
+        this.id = id;
     }
 
     public String getFullname() {
-        return fullname.get();
-    }
-
-    public SimpleStringProperty fullnameProperty() {
         return fullname;
     }
 
     public void setFullname(String fullname) {
-        this.fullname.set(fullname);
+        this.fullname = fullname;
     }
 
     public String getEmail() {
-        return email.get();
-    }
-
-    public SimpleStringProperty emailProperty() {
         return email;
     }
 
     public void setEmail(String email) {
-        this.email.set(email);
+        this.email = email;
     }
 
     public String getUsername() {
-        return username.get();
-    }
-
-    public SimpleStringProperty usernameProperty() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username.set(username);
+        this.username = username;
     }
 
     public int getOrders() {
-        return orders.get();
-    }
-
-    public SimpleIntegerProperty ordersProperty() {
         return orders;
     }
 
     public void setOrders(int orders) {
-        this.orders.set(orders);
+        this.orders = orders;
     }
 
     public String getStatus() {
-        return status.get();
-    }
-
-    public SimpleStringProperty statusProperty() {
         return status;
     }
 
     public void setStatus(String status) {
-        this.status.set(status);
+        this.status = status;
     }
 }

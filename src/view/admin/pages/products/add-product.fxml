@@ -48,7 +48,7 @@
                         <TextArea fx:id="fieldAddProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
                         <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product added!" visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" onAction="#btnAddProductOnAction" text="Add Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                        <Button mnemonicParsing="false" styleClass="button, success" onAction="#btnAddProductOnAction" text="Add Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
             </center>

@@ -20,7 +20,6 @@ import java.util.Optional;
 /**
  * This class handles the users products page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class UserProductsController {
 
@@ -34,7 +33,6 @@ public class UserProductsController {
     /**
      * This method lists all the product to the view table.
      * It starts a new Task, gets all the products from the database then bind the results to the view.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -55,7 +53,6 @@ public class UserProductsController {
 
     /**
      * This private method adds the action buttons to the table rows.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -70,6 +67,9 @@ public class UserProductsController {
                     private final Button buyButton = new Button("Buy");
 
                     {
+                        buyButton.getStyleClass().add("button");
+                        buyButton.getStyleClass().add("xs");
+                        buyButton.getStyleClass().add("success");
                         buyButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
                             if (productData.getQuantity() <= 0) {
@@ -113,7 +113,6 @@ public class UserProductsController {
     /**
      * This private method handles the products search functionality.
      * It creates a new task, gets the search results from the database and binds them to the view table.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -135,7 +134,6 @@ public class UserProductsController {
      * This private method handles the buy product functionality.
      * @param product_id        Product id.
      * @param product_name      Product name.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML

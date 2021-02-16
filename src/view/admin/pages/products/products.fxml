@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.ProductsController">
    <StackPane fx:id="productsContent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-      
+
           <BorderPane prefHeight="521.0" prefWidth="743.0">
               <padding>
                   <Insets left="30.0" right="30.0" />
@@ -27,13 +27,13 @@
                       </BorderPane.margin>
                       <AnchorPane prefHeight="200.0" prefWidth="200.0">
                           <TextField fx:id="fieldProductsSearch" layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0" promptText="search by product name or description" />
-                          <Button layoutX="300.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnProductsSearchOnAction" prefHeight="26.0" text="Search" />
+                          <Button layoutX="300.0" styleClass="button, info, sm" layoutY="2.0" mnemonicParsing="false" onAction="#btnProductsSearchOnAction" prefHeight="26.0" text="Search" />
                       </AnchorPane>
-                       <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#btnAddProductOnClick" prefHeight="26.0" text="Add New Product" textAlignment="RIGHT" GridPane.columnIndex="1" />
+                       <Button alignment="CENTER_RIGHT" styleClass="button, success, sm" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#btnAddProductOnClick" prefHeight="26.0" text="Add New Product" textAlignment="RIGHT" GridPane.columnIndex="1" />
                   </GridPane>
               </top>
               <center>
-                  <TableView fx:id="tableProductsPage" editable="true" prefHeight="663.0" prefWidth="1220.0">
+                  <TableView fx:id="tableProductsPage" styleClass="table-view" editable="true" prefHeight="663.0" prefWidth="1220.0">
                       <columns>
                           <TableColumn prefWidth="75.0" text="Name">
                               <cellValueFactory>

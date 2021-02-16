@@ -8,7 +8,6 @@ import model.Datasource;
 /**
  * This class handles the users home page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class UserHomeController {
 
@@ -17,7 +16,6 @@ public class UserHomeController {
 
     /**
      * This method gets the products count for the user dashboard and sets it to the productsCount label.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void getDashboardProdCount() {
@@ -37,7 +35,6 @@ public class UserHomeController {
 
     /**
      * This method gets the orders count for the user dashboard and sets it to the ordersCount label.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void getDashboardOrdersCount() {

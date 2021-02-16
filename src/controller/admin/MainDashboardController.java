@@ -27,7 +27,6 @@ import java.util.ResourceBundle;
 /**
  * This class handles the admin user dashboard interactions.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class MainDashboardController implements Initializable {
     @FXML
@@ -54,7 +53,6 @@ public class MainDashboardController implements Initializable {
      * This method handles the Home button click.
      * It loads the home page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnHomeOnClick(ActionEvent actionEvent) {
@@ -68,7 +66,6 @@ public class MainDashboardController implements Initializable {
      * This method handles the products button click.
      * It loads the products page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnProductsOnClick(ActionEvent actionEvent) {
@@ -81,7 +78,6 @@ public class MainDashboardController implements Initializable {
      * This method handles the orders button click.
      * It loads the orders page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnOrdersOnClick(ActionEvent actionEvent) {
@@ -94,7 +90,6 @@ public class MainDashboardController implements Initializable {
      * This method customers the Home button click.
      * It loads the customers page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnCustomersOnClick(ActionEvent actionEvent) {
@@ -106,7 +101,6 @@ public class MainDashboardController implements Initializable {
     /**
      * This method handles the settings button click.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnSettingsOnClick(ActionEvent actionEvent) {
@@ -118,7 +112,6 @@ public class MainDashboardController implements Initializable {
      * On click and confirmation it opens the login view and clears the user session instance.
      * @param actionEvent       Accepts ActionEvent.
      * @throws IOException      If an input or output exception occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {
@@ -143,7 +136,6 @@ public class MainDashboardController implements Initializable {
     /**
      * This private helper method loads the view file.
      * @param view_path         Accepts path of view file.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     private FXMLLoader loadFxmlPage(String view_path) {

@@ -27,7 +27,7 @@
                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                         <children>
                             <TextField layoutX="1.0" layoutY="2.0" prefHeight="25.0" prefWidth="291.0" promptText="search orders" />
-                            <Button fx:id="btnOrdersSearch" layoutX="300.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnOrdersSearchOnAction" prefHeight="26.0" text="Search" />
+                            <Button fx:id="btnOrdersSearch" styleClass="button, info, sm" layoutX="300.0" layoutY="2.0" mnemonicParsing="false" onAction="#btnOrdersSearchOnAction" prefHeight="26.0" text="Search" />
                         </children>
                     </AnchorPane>
                 </children>

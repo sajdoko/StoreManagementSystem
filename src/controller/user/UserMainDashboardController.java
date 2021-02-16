@@ -26,7 +26,6 @@ import java.util.ResourceBundle;
 /**
  * This class handles the simple user dashboard interactions.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class UserMainDashboardController implements Initializable {
     public Button btnHome;
@@ -44,7 +43,6 @@ public class UserMainDashboardController implements Initializable {
      * This method handles the Home button click.
      * It loads the home page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnHomeOnClick(ActionEvent actionEvent) {
@@ -58,7 +56,6 @@ public class UserMainDashboardController implements Initializable {
      * This method handles the Orders button click.
      * It loads the Orders page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnOrdersOnClick(ActionEvent actionEvent) {
@@ -71,7 +68,6 @@ public class UserMainDashboardController implements Initializable {
      * This method handles the Products button click.
      * It loads the Products page and it's contents.
      * @param actionEvent       Accepts ActionEvent.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnProductsOnClick(ActionEvent actionEvent) {
@@ -85,7 +81,6 @@ public class UserMainDashboardController implements Initializable {
      * On click and confirmation it opens the login view and clears the user session instance.
      * @param actionEvent       Accepts ActionEvent.
      * @throws IOException      If an input or output exception occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnLogOutOnClick(ActionEvent actionEvent) throws IOException {
@@ -111,7 +106,6 @@ public class UserMainDashboardController implements Initializable {
     /**
      * This private helper method loads the view file.
      * @param view_path         Accepts path of view file.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     private FXMLLoader loadFxmlPage(String view_path) {

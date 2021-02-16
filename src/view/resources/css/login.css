@@ -1,37 +1,8 @@
 @import "bootstrap3.css";
 
 .root {
-    display: block;
     -fx-background-image: url("../img/brand/loginBg.jpg");
     -fx-background-size: cover;
     -fx-background-position: bottom;
     -fx-background-repeat: no-repeat;
 }
-/*.text-field:focused {*/
-/*    -fx-focus-color: transparent;*/
-/*    !*-fx-background-color: -fx-control-inner-background;*!*/
-/*    -fx-background-insets: 1;*/
-/*    -fx-padding: 1 3 1 3;*/
-/*}*/
-/*.label {*/
-/*    -fx-font-size: 12px;*/
-/*    -fx-font-weight: bold;*/
-/*    -fx-text-fill: #000000;*/
-/*}*/
-
-/*#welcome-text {*/
-/*    -fx-font-size: 32px;*/
-/*    -fx-font-family: "Arial Black";*/
-/*    -fx-fill: #000;*/
-/*}*/
-/*#actionTarget {*/
-/*    -fx-fill: FIREBRICK;*/
-/*    -fx-font-weight: bold;*/
-/*}*/
-
-/*.button {*/
-/*    -fx-text-fill: #000;*/
-/*    -fx-font-family: "Arial Narrow";*/
-/*    -fx-font-weight: bold;*/
-/*}*/
-

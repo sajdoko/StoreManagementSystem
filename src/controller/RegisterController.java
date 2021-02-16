@@ -21,7 +21,6 @@ import java.sql.SQLException;
 /**
  * This class handles the registration operations of the application.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class RegisterController {
 
@@ -42,7 +41,6 @@ public class RegisterController {
      * It transfers the user screen to the login view.
      * @param actionEvent       Accepts ActionEvent.
      * @throws IOException      If an input or output exception occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void handleLoginButtonAction(ActionEvent actionEvent) throws IOException {
@@ -63,7 +61,6 @@ public class RegisterController {
      * to the appropriate dashboard.
      * @param actionEvent       Accepts ActionEvent.
      * @throws SQLException     If an SQL error occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void handleRegisterButtonAction(ActionEvent actionEvent) throws SQLException {
@@ -74,13 +71,21 @@ public class RegisterController {
         String email = emailField.getText();
         String providedPassword = passwordField.getText();
 
+        // Validate Full Name
         if (fullName == null || fullName.isEmpty()) {
             validationErrors += "Please enter your Name and Surname! \n";
             errors = true;
+        } else if (!HelperMethods.validateFullName(fullName)) {
+            validationErrors += "Please enter a valid Name and Surname! \n";
+            errors = true;
         }
 
+        // Validate Username
         if (username == null || username.isEmpty()) {
             validationErrors += "Please enter a username! \n";
+            errors = true;
+        } else if (!HelperMethods.validateUsername(username)) {
+            validationErrors += "Please enter a valid Username! \n";
             errors = true;
         } else {
             User userByUsername = model.Datasource.getInstance().getUserByUsername(username);
@@ -90,8 +95,12 @@ public class RegisterController {
             }
         }
 
-        if (email == null || email.isEmpty() || !HelperMethods.validateEmail(email)) {
+        // Validate Email
+        if (email == null || email.isEmpty()) {
             validationErrors += "Please enter an email address! \n";
+            errors = true;
+        } else if (!HelperMethods.validateEmail(email)) {
+            validationErrors += "Please enter a valid Email address! \n";
             errors = true;
         } else {
             User userByEmail = model.Datasource.getInstance().getUserByEmail(email);
@@ -101,14 +110,13 @@ public class RegisterController {
             }
         }
 
+        // Validate Password
         if (providedPassword == null || providedPassword.isEmpty()) {
             validationErrors += "Please enter the password! \n";
             errors = true;
-        } else {
-            if (!HelperMethods.passwordValidation(providedPassword)) {
-                validationErrors += "Password must be at least 6 and maximum 16 characters! \n";
-                errors = true;
-            }
+        } else if (!HelperMethods.validatePassword(providedPassword)){
+            validationErrors += "Password must be at least 6 and maximum 16 characters! \n";
+            errors = true;
         }
 
         if (errors) {
@@ -133,9 +141,11 @@ public class RegisterController {
                     } catch (SQLException err) {
                         err.printStackTrace();
                     }
+
+                    // Method invocation 'getId' may produce 'NullPointerException'
                     assert user != null;
 
-                    UserSessionController.setUserId((int) user.getId());
+                    UserSessionController.setUserId(user.getId());
                     UserSessionController.setUserFullName(user.getFullname());
                     UserSessionController.setUserName(user.getUsername());
                     UserSessionController.setUserEmail(user.getEmail());

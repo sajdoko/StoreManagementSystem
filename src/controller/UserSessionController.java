@@ -10,8 +10,6 @@ package controller;
  * object gets created. This class provides a way to access its only object which can be accessed directly without
  * need to instantiate the object of the class.
  *
- * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class UserSessionController {
 

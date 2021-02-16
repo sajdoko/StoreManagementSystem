@@ -20,7 +20,6 @@ import java.util.Optional;
 /**
  * This class handles the admin customers page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class CustomersController {
 
@@ -34,7 +33,6 @@ public class CustomersController {
     /**
      * This method lists all the customers to the view table.
      * It starts a new Task, gets all the simple users from the database then bind the results to the view.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -55,7 +53,6 @@ public class CustomersController {
 
     /**
      * This private method adds the action buttons to the table rows.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -68,8 +65,10 @@ public class CustomersController {
                 return new TableCell<Customer, Void>() {
 
                     private final Button viewButton = new Button("View");
-
                     {
+                        viewButton.getStyleClass().add("button");
+                        viewButton.getStyleClass().add("xs");
+                        viewButton.getStyleClass().add("info");
                         viewButton.setOnAction((ActionEvent event) -> {
                             Customer customerData = getTableView().getItems().get(getIndex());
                             btnViewCustomer((int) customerData.getId());
@@ -82,6 +81,9 @@ public class CustomersController {
                     private final Button editButton = new Button("Edit");
 
                     {
+                        editButton.getStyleClass().add("button");
+                        editButton.getStyleClass().add("xs");
+                        editButton.getStyleClass().add("primary");
                         editButton.setOnAction((ActionEvent event) -> {
                             Customer customerData = getTableView().getItems().get(getIndex());
                             btnEditCustomer((int) customerData.getId());
@@ -94,6 +96,9 @@ public class CustomersController {
                     private final Button deleteButton = new Button("Delete");
 
                     {
+                        deleteButton.getStyleClass().add("button");
+                        deleteButton.getStyleClass().add("xs");
+                        deleteButton.getStyleClass().add("danger");
                         deleteButton.setOnAction((ActionEvent event) -> {
                             Customer customerData = getTableView().getItems().get(getIndex());
 
@@ -117,8 +122,8 @@ public class CustomersController {
 
                     {
                         buttonsPane.setSpacing(10);
-                        buttonsPane.getChildren().add(viewButton);
-                        buttonsPane.getChildren().add(editButton);
+//                        buttonsPane.getChildren().add(viewButton);
+//                        buttonsPane.getChildren().add(editButton);
                         buttonsPane.getChildren().add(deleteButton);
                     }
 
@@ -145,7 +150,6 @@ public class CustomersController {
     /**
      * This private method handles the customers search functionality.
      * It creates a new task, gets the search results from the database and binds them to the view table.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void btnCustomersSearchOnAction() {
@@ -164,7 +168,6 @@ public class CustomersController {
     /**
      * This private method loads the edit customer view page.
      * @param customer_id       Customer id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -187,7 +190,6 @@ public class CustomersController {
     /**
      * This private method loads the single customer view page.
      * @param customer_id       Customer id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -210,7 +212,6 @@ public class CustomersController {
     /**
      * This private method gets the single customer data from the database and binds them to the view.
      * @param customer_id       Customer id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML

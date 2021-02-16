@@ -12,7 +12,6 @@ import model.Datasource;
 /**
  * This class handles the admin orders page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class OrdersController {
 
@@ -22,7 +21,6 @@ public class OrdersController {
     /**
      * This method lists all the orders to the view table.
      * It starts a new Task, gets all the products from the database then bind the results to the view.
-     * @author      Sajmir Doko
      * @since       1.0.0
      */
     @FXML

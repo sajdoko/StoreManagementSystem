@@ -22,7 +22,6 @@ import java.util.Optional;
 /**
  * This class handles the admin products page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class ProductsController {
 
@@ -52,7 +51,6 @@ public class ProductsController {
     /**
      * This method lists all the product to the view table.
      * It starts a new Task, gets all the products from the database then bind the results to the view.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -73,7 +71,6 @@ public class ProductsController {
 
     /**
      * This private method adds the action buttons to the table rows.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -88,6 +85,9 @@ public class ProductsController {
                     private final Button viewButton = new Button("View");
 
                     {
+                        viewButton.getStyleClass().add("button");
+                        viewButton.getStyleClass().add("xs");
+                        viewButton.getStyleClass().add("info");
                         viewButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
                             btnViewProduct(productData.getId());
@@ -100,6 +100,9 @@ public class ProductsController {
                     private final Button editButton = new Button("Edit");
 
                     {
+                        editButton.getStyleClass().add("button");
+                        editButton.getStyleClass().add("xs");
+                        editButton.getStyleClass().add("primary");
                         editButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
 
@@ -113,6 +116,9 @@ public class ProductsController {
                     private final Button deleteButton = new Button("Delete");
 
                     {
+                        deleteButton.getStyleClass().add("button");
+                        deleteButton.getStyleClass().add("xs");
+                        deleteButton.getStyleClass().add("danger");
                         deleteButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
 
@@ -136,7 +142,7 @@ public class ProductsController {
 
                     {
                         buttonsPane.setSpacing(10);
-                        buttonsPane.getChildren().add(viewButton);
+//                        buttonsPane.getChildren().add(viewButton);
                         buttonsPane.getChildren().add(editButton);
                         buttonsPane.getChildren().add(deleteButton);
                     }
@@ -164,7 +170,6 @@ public class ProductsController {
     /**
      * This private method handles the products search functionality.
      * It creates a new task, gets the search results from the database and binds them to the view table.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -183,7 +188,6 @@ public class ProductsController {
 
     /**
      * This private method loads the add product view page.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -204,7 +208,6 @@ public class ProductsController {
     /**
      * This private method handles the add product button functionality.
      * It validates user input fields and adds the values to the database.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -237,7 +240,6 @@ public class ProductsController {
     /**
      * This private method validates the user input fields for the product.
      * @return boolean          Returns true or false.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -284,7 +286,6 @@ public class ProductsController {
     /**
      * This private method loads the edit product view page.
      * @param product_id        Product id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -307,7 +308,6 @@ public class ProductsController {
     /**
      * This private method loads single add product view page.
      * @param product_id        Product id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML
@@ -330,7 +330,6 @@ public class ProductsController {
     /**
      * This private method gets the single product data from the database and binds them to the view.
      * @param product_id        Product id.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     @FXML

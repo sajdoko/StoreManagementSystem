@@ -19,7 +19,6 @@ import model.User;
 /**
  * This class handles the login operations of the application.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class LoginController {
     @FXML
@@ -38,7 +37,6 @@ public class LoginController {
      * @param event             Accepts ActionEvent.
      * @throws IOException      If an input or output exception occurred.
      * @throws SQLException     If an SQL error occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void handleLoginButtonAction(ActionEvent event) throws SQLException, IOException {
@@ -47,6 +45,8 @@ public class LoginController {
 
         if ((username == null || username.isEmpty()) || (providedPassword == null || providedPassword.isEmpty())) {
             HelperMethods.alertBox("Please enter the Username and Password", null, "Login Failed!");
+        } else if (!HelperMethods.validateUsername(username)) {
+            HelperMethods.alertBox("Please enter a valid Username!", null, "Login Failed!");
         } else {
 
             User user = model.Datasource.getInstance().getUserByUsername(username);
@@ -56,7 +56,7 @@ public class LoginController {
                 boolean passwordMatch = PasswordUtils.verifyUserPassword(providedPassword, user.getPassword(), user.getSalt());
 
                 if (passwordMatch) {
-                    UserSessionController.setUserId((int) user.getId());
+                    UserSessionController.setUserId(user.getId());
                     UserSessionController.setUserFullName(user.getFullname());
                     UserSessionController.setUserName(user.getUsername());
                     UserSessionController.setUserEmail(user.getEmail());
@@ -85,7 +85,6 @@ public class LoginController {
      * It transfers the user screen to the registration view.
      * @param actionEvent       Accepts ActionEvent.
      * @throws IOException      If an input or output exception occurred.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void handleRegisterButtonAction(ActionEvent actionEvent) throws IOException {

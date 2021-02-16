@@ -8,7 +8,6 @@ import model.Datasource;
 /**
  * This class handles the admin home page.
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class HomeController {
 
@@ -19,7 +18,6 @@ public class HomeController {
 
     /**
      * This method gets the products count for the admin dashboard and sets it to the productsCount label.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void getDashboardProdCount() {
@@ -39,7 +37,6 @@ public class HomeController {
 
     /**
      * This method gets the customers count for the admin dashboard and sets it to the customersCount label.
-     * @author                  Sajmir Doko
      * @since                   1.0.0
      */
     public void getDashboardCostCount() {

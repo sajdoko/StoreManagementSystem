@@ -1,16 +1,17 @@
+/*Credits: https://github.com/dicolar/jbootx*/
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
 }
-.button:focused, .toggle-button:focused,
+.button:focused,.button:selected, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,
 .number-button:focused,
 .combo-box:focused .text-field, .choice-box:focused, .color-picker:focused, .date-picker:focused .text-field
 {
-	-fx-effect: dropshadow(gaussian, #b4d1f3, 3, 3, 0, 0);
+	-fx-effect: null;
 }
 .combo-box:focused * {
-	-fx-effect: none;
+	-fx-effect: null;
 }
 
 .button,.menu-button,.toggle-button,.split-menu-button {
@@ -38,17 +39,20 @@
 	-fx-min-height: 46;
 	-fx-max-height: 46;
 	-fx-font-size: 18;
+	-fx-padding: 0 5;
 }
 
 .sm {
 	-fx-min-height: 30;
 	-fx-max-height: 30;
+	-fx-padding: 0 5;
 }
 
 .xs {
 	-fx-min-height: 22;
 	-fx-max-height: 22;
-	-fx-font-size: 10;
+	-fx-font-size: 12;
+	-fx-padding: 0 3;
 }
 
 .primary .arrow,
@@ -150,7 +154,7 @@ VBox > .split-menu-button.last > .arrow-button {
 
 /*default button settings*/
 
-/*bgcolor setting*/
+/*bg-color setting*/
 .color-picker,.date-picker > .arrow-button,
 .number-button,.left-arrow-button,.right-arrow-button,
 .button,.split-menu-button,.toggle-button,.menu-button,
@@ -201,7 +205,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button:pressed > .label, .split-menu-button > .arrow-button:pressed {
 	-fx-background-color: #e6e6e6;
 	-fx-border-color: #acacac;
-	-fx-effect: innershadow(gaussian, #adadad, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 	/*primary*/
@@ -229,7 +233,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button.primary:pressed > .label, .split-menu-button.primary > .arrow-button:pressed {
 	-fx-background-color: #286090;
 	-fx-border-color: #204d74;
-	-fx-effect: innershadow(gaussian, #204d74, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 /*success*/
@@ -257,7 +261,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button.success:pressed > .label, .split-menu-button.success > .arrow-button:pressed {
 	-fx-background-color: #449d44;
 	-fx-border-color: #398439;
-	-fx-effect: innershadow(gaussian, #398439, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 /*info*/
@@ -285,7 +289,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button.info:pressed > .label, .split-menu-button.info > .arrow-button:pressed {
 	-fx-background-color: #31b0d5;
 	-fx-border-color: #269abc;
-	-fx-effect: innershadow(gaussian, #269abc, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 /*warning*/
@@ -313,7 +317,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button.warning:pressed > .label, .split-menu-button.warning > .arrow-button:pressed {
 	-fx-background-color: #ec971f;
 	-fx-border-color: #d58512;
-	-fx-effect: innershadow(gaussian, #d58512, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 /*danger*/
@@ -341,7 +345,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .split-menu-button.danger:pressed > .label, .split-menu-button.danger > .arrow-button:pressed {
 	-fx-border-color: #ac2925;
 	-fx-background-color: #c9302c;
-	-fx-effect: innershadow(gaussian, #ac2925, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 .menu-item {
@@ -398,7 +402,7 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 
 .combo-box:editable > .arrow-button:pressed {
-	-fx-effect: innershadow(gaussian, #adadad, 10, 0, 0, 3);
+	-fx-effect: null;
 }
 
 .combo-box > .text-input, .date-picker > .text-input {
@@ -411,12 +415,12 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-background-color: white;
 	-fx-border-radius: 4;
 	-fx-background-radius: 4;
-	-fx-effect: innershadow(gaussian, transparent, 0, 0, 0, 0);
+	-fx-effect: null;
 }
 
 .text-field:focused, .text-area:focused {
 	-fx-border-color: #66afe9;
-	-fx-effect: dropshadow(gaussian, #66afe9, 10, 0, 0, 0);
+	-fx-effect: null;
 }
 
 .text-area .scroll-pane, .text-area .scroll-pane .content {

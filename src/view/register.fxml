@@ -26,7 +26,7 @@
             <TextField fx:id="usernameField" layoutX="523.0" layoutY="387.0" prefHeight="26.0" prefWidth="248.0" promptText=" username" />
             <TextField fx:id="emailField" layoutX="523.0" layoutY="425.0" prefHeight="26.0" prefWidth="248.0" promptText=" email" />
             <PasswordField fx:id="passwordField" layoutX="523.0" layoutY="463.0" prefHeight="26.0" prefWidth="248.0" promptText="password" />
-            <Button layoutX="523.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="32.0" prefWidth="248.0" text="Register">
+            <Button layoutX="523.0" layoutY="526.0" styleClass="primary" mnemonicParsing="false" onAction="#handleRegisterButtonAction" prefHeight="32.0" prefWidth="248.0" text="Register">
                <font>
                   <Font size="15.0" />
                </font>
@@ -36,7 +36,7 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Button layoutX="523.0" layoutY="603.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="32.0" prefWidth="248.0" text="Login">
+            <Button layoutX="523.0" layoutY="603.0" styleClass="success" mnemonicParsing="false" onAction="#handleLoginButtonAction" prefHeight="32.0" prefWidth="248.0" text="Login">
                <font>
                   <Font size="15.0" />
                </font>

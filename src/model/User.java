@@ -28,7 +28,7 @@ public class User {
     private int admin;
     private String status;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

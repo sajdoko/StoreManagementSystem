@@ -13,7 +13,6 @@ import java.util.List;
  * need to instantiate the object of the class.
  *
  * @author      Sajmir Doko
- * @since       1.0.0
  */
 public class Datasource {
 
@@ -72,6 +71,7 @@ public class Datasource {
     /**
      * Get the only object available
      * @return      Datasource instance.
+     * @since                   1.0.0
      */
     public static Datasource getInstance() {
         return instance;
@@ -81,7 +81,6 @@ public class Datasource {
      * This method makes the connection to the database and assigns the Connection to the conn variable.
      * It is designed to be called in the application's Main method.
      * @return boolean      Returns true or false.
-     * @author              Sajmir Doko
      * @since               1.0.0
      */
     public boolean open() {
@@ -97,7 +96,6 @@ public class Datasource {
     /**
      * This method closes the connection to the database.
      * It is designed to be called in the application's Main method.
-     * @author      Sajmir Doko
      * @since       1.0.0
      */
     public void close() {
@@ -115,6 +113,7 @@ public class Datasource {
      * This method get all the products from the database.
      * @param sortOrder     Results sort order.
      * @return List         Returns Product array list.
+     * @since                   1.0.0
      */
     public List<Product> getAllProducts(int sortOrder) {
 
@@ -157,6 +156,7 @@ public class Datasource {
      * This method get one product from the database based on the provided product_id.
      * @param product_id    Product id.
      * @return List         Returns Product array list.
+     * @since                   1.0.0
      */
     public List<Product> getOneProduct(int product_id) {
 
@@ -190,6 +190,7 @@ public class Datasource {
      * @param searchString  String to search product name or product description.
      * @param sortOrder     Results sort order.
      * @return List         Returns Product array list.
+     * @since                   1.0.0
      */
     public List<Product> searchProducts(String searchString, int sortOrder) {
         StringBuilder queryProducts = queryProducts();
@@ -233,6 +234,7 @@ public class Datasource {
     /**
      * This private method returns an default query for the products.
      * @return StringBuilder
+     * @since                   1.0.0
      */
     private StringBuilder queryProducts() {
         return new StringBuilder("SELECT " +
@@ -254,6 +256,7 @@ public class Datasource {
      * This method deletes one product based on the productId provided.
      * @param productId     Product id.
      * @return boolean      Returns true or false.
+     * @since                   1.0.0
      */
     public boolean deleteSingleProduct(int productId) {
         String sql = "DELETE FROM " + TABLE_PRODUCTS + " WHERE " + COLUMN_PRODUCTS_ID + " = ?";
@@ -277,6 +280,7 @@ public class Datasource {
      * @param quantity      Product quantity.
      * @param category_id   Product category_id.
      * @return boolean      Returns true or false.
+     * @since                   1.0.0
      */
     public boolean insertNewProduct(String name, String description, int price, int quantity, int category_id) {
 
@@ -306,6 +310,7 @@ public class Datasource {
     /**
      * This method decreases the product stock by one based on the provided product_id.
      * @param product_id    Product id.
+     * @since                   1.0.0
      */
     public void decreaseStock(int product_id) {
 
@@ -325,6 +330,7 @@ public class Datasource {
      * This method get all the customers from the database.
      * @param sortOrder     Results sort order.
      * @return List         Returns Customer array list.
+     * @since                   1.0.0
      */
     public List<Customer> getAllCustomers(int sortOrder) {
 
@@ -349,8 +355,8 @@ public class Datasource {
                 customer.setFullname(results.getString(2));
                 customer.setEmail(results.getString(3));
                 customer.setUsername(results.getString(4));
-                customer.setStatus(results.getString(5));
-                customer.setOrders(results.getInt(6));
+                customer.setOrders(results.getInt(5));
+                customer.setStatus(results.getString(6));
                 customers.add(customer);
             }
             return customers;
@@ -365,6 +371,7 @@ public class Datasource {
      * This method get one customer from the database based on the provided product_id.
      * @param customer_id   Customer id.
      * @return List         Returns Product array list.
+     * @since                   1.0.0
      */
     public List<Customer> getOneCustomer(int customer_id) {
 
@@ -397,6 +404,7 @@ public class Datasource {
      * @param searchString  String to search product name or product description.
      * @param sortOrder     Results sort order.
      * @return List         Returns Product array list.
+     * @since                   1.0.0
      */
     public List<Customer> searchCustomers(String searchString, int sortOrder) {
 
@@ -441,6 +449,7 @@ public class Datasource {
     /**
      * This private method returns an default query for the customers.
      * @return StringBuilder
+     * @since                   1.0.0
      */
     private StringBuilder queryCustomers() {
         return new StringBuilder("SELECT " +
@@ -448,8 +457,8 @@ public class Datasource {
                 TABLE_USERS + "." + COLUMN_USERS_FULLNAME + ", " +
                 TABLE_USERS + "." + COLUMN_USERS_EMAIL + ", " +
                 TABLE_USERS + "." + COLUMN_USERS_USERNAME + ", " +
-                TABLE_USERS + "." + COLUMN_USERS_STATUS + ", " +
-                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + " = " + TABLE_USERS + "." + COLUMN_USERS_ID + ") AS orders" +
+                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_USER_ID + " = " + TABLE_USERS + "." + COLUMN_USERS_ID + ") AS orders" + ", " +
+                TABLE_USERS + "." + COLUMN_USERS_STATUS +
                 " FROM " + TABLE_USERS +
                 " WHERE " + TABLE_USERS + "." + COLUMN_USERS_ADMIN + " = 0"
         );
@@ -459,6 +468,7 @@ public class Datasource {
      * This method deletes one customer based on the customerId provided.
      * @param customerId    Customer id.
      * @return boolean      Returns true or false.
+     * @since                   1.0.0
      */
     public boolean deleteSingleCustomer(int customerId) {
         String sql = "DELETE FROM " + TABLE_USERS + " WHERE " + COLUMN_USERS_ID + " = ?";
@@ -481,7 +491,7 @@ public class Datasource {
      * This method gets one user from the database based on the email provided.
      * @param email             Accepts email string.
      * @throws SQLException     If an SQL error occurred.
-     * @author                  Sajmir Doko
+     * @return User             Returns the User Object.
      * @since                   1.0.0
      */
     public User getUserByEmail(String email) throws SQLException {
@@ -511,7 +521,7 @@ public class Datasource {
      * This method gets one user from the database based on the username provided.
      * @param username          Accepts username string.
      * @throws SQLException     If an SQL error occurred.
-     * @author                  Sajmir Doko
+     * @return User             Returns the User Object.
      * @since                   1.0.0
      */
     public User getUserByUsername(String username) throws SQLException {
@@ -545,6 +555,7 @@ public class Datasource {
      * @param password      Users password.
      * @param salt          Users salt.
      * @return boolean      Returns true or false.
+     * @since                   1.0.0
      */
     public boolean insertNewUser(String fullName, String username, String email, String password, String salt) {
 
@@ -579,6 +590,7 @@ public class Datasource {
      * This method gets all orders from the database.
      * @param sortOrder     Results sort order.
      * @return List         Returns Order array list.
+     * @since                   1.0.0
      */
     public List<Order> getAllOrders(int sortOrder) {
 
@@ -640,7 +652,9 @@ public class Datasource {
     /**
      * This method gets all orders of the simple user from the database.
      * @param sortOrder     Results sort order.
+     * @param user_id       Provided user id.
      * @return List         Returns Order array list.
+     * @since                   1.0.0
      */
     public List<Order> getAllUserOrders(int sortOrder, int user_id) {
 
@@ -707,6 +721,7 @@ public class Datasource {
      * @param order_date    Order date.
      * @param order_status  Order status.
      * @return boolean      Returns true or false.
+     * @since                   1.0.0
      */
     public boolean insertNewOrder(int product_id, int user_id, String order_date, String order_status) {
 
@@ -735,6 +750,7 @@ public class Datasource {
     /**
      * This method counts all the products on the database.
      * @return int      Returns count of the products.
+     * @since                   1.0.0
      */
     public Integer countAllProducts() {
         try (Statement statement = conn.createStatement();
@@ -753,6 +769,7 @@ public class Datasource {
     /**
      * This method counts all the simple users on the database.
      * @return int      Returns count of the simple users.
+     * @since                   1.0.0
      */
     public Integer countAllCustomers() {
         try (Statement statement = conn.createStatement();
@@ -778,7 +795,9 @@ public class Datasource {
 
     /**
      * This method counts all the orders on the database.
+     * @param user_id       Provided user id.
      * @return int      Returns count of the orders.
+     * @since                   1.0.0
      */
     public Integer countUserOrders(int user_id) {
 

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="StoreManagementSystem:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/StoreManagementSystem_jar</output-path>
+    <root id="archive" name="StoreManagementSystem.jar">
+      <element id="module-output" name="StoreManagementSystem" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/lib/sqlite-jdbc-3.31.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

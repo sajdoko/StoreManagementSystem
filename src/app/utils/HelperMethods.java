@@ -1,10 +1,14 @@
 package app.utils;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextFormatter;
+import javafx.util.StringConverter;
+
+import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-    /**
+/**
      * This class provides various helper methods which will me used
      * throughout the entire application.
      * @author      Sajmir Doko
@@ -75,6 +79,28 @@ public class HelperMethods {
 //        .{8,}             # anything, at least eight places though
 //        $                 # end-of-string
         return password.matches("^.{6,16}$");
+    }
+
+    /**
+     * This method is used to validate a string if it is an valid product quantity.
+     * {@link}              https://stackoverflow.com/a/15801999
+     * @param integer       Accepts a string to validate as product quantity.
+     * @return boolean      Returns true or false.
+     * @since               1.0.0
+     */
+    public static boolean validateProductQuantity(String integer){
+        return integer.matches("-?(0|[1-9]\\d*)");
+    }
+
+    /**
+     * This method is used to validate a string if it is an double.
+     * {@link}              https://stackoverflow.com/a/23106803
+     * @param productPrice  Accepts a string to validate as double.
+     * @return boolean      Returns true or false.
+     * @since               1.0.0
+     */
+    public static boolean validateProductPrice(String productPrice){
+        return productPrice.matches("^[0-9]+(|\\.)[0-9]+$");
     }
 
     /**

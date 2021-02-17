@@ -1,5 +1,6 @@
-package controller.admin.pages;
+package controller.admin.pages.products;
 
+import app.utils.HelperMethods;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -13,11 +14,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 import model.Datasource;
 import model.Product;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 /**
  * This class handles the admin products page.
@@ -28,21 +32,9 @@ public class ProductsController {
     @FXML
     public TextField fieldProductsSearch;
     @FXML
-    public TextField fieldAddProductName;
-    @FXML
-    public TextField fieldAddProductPrice;
-    @FXML
-    public TextField fieldAddProductQuantity;
-    @FXML
-    public TextArea fieldAddProductDescription;
-    @FXML
-    public ComboBox fieldAddProductCategoryId;
-    @FXML
     public Text viewProductResponse;
     @FXML
     public GridPane formEditProductView;
-    @FXML
-    private TextField fieldEditProductPrice;
     @FXML
     private StackPane productsContent;
     @FXML
@@ -91,9 +83,6 @@ public class ProductsController {
                         viewButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
                             btnViewProduct(productData.getId());
-                            System.out.println("View Product");
-                            System.out.println("product id: " + productData.getId());
-                            System.out.println("product name: " + productData.getName());
                         });
                     }
 
@@ -105,11 +94,7 @@ public class ProductsController {
                         editButton.getStyleClass().add("primary");
                         editButton.setOnAction((ActionEvent event) -> {
                             Product productData = getTableView().getItems().get(getIndex());
-
                             btnEditProduct(productData.getId());
-                            System.out.println("Edit Product");
-                            System.out.println("product id: " + productData.getId());
-                            System.out.println("product name: " + productData.getName());
                         });
                     }
 
@@ -142,7 +127,7 @@ public class ProductsController {
 
                     {
                         buttonsPane.setSpacing(10);
-//                        buttonsPane.getChildren().add(viewButton);
+                        buttonsPane.getChildren().add(viewButton);
                         buttonsPane.getChildren().add(editButton);
                         buttonsPane.getChildren().add(deleteButton);
                     }
@@ -206,84 +191,6 @@ public class ProductsController {
     }
 
     /**
-     * This private method handles the add product button functionality.
-     * It validates user input fields and adds the values to the database.
-     * @since                   1.0.0
-     */
-    @FXML
-    private void btnAddProductOnAction() {
-        if (isAddProductInputsValid()) {
-            String productName = fieldAddProductName.getText();
-            String productDescription = fieldAddProductDescription.getText();
-            int productPrice = Integer.parseInt(fieldAddProductPrice.getText());
-            int productQuantity = Integer.parseInt(fieldAddProductQuantity.getText());
-            int productCategoryId = Integer.parseInt(fieldAddProductCategoryId.getValue().toString());
-
-            Task<Boolean> addProductTask = new Task<Boolean>() {
-                @Override
-                protected Boolean call() {
-                    return Datasource.getInstance().insertNewProduct(productName, productDescription, productPrice, productQuantity, productCategoryId);
-                }
-            };
-
-            addProductTask.setOnSucceeded(e -> {
-                if (addProductTask.valueProperty().get()) {
-                    viewProductResponse.setVisible(true);
-                    System.out.println("Product added!");
-                }
-            });
-
-            new Thread(addProductTask).start();
-        }
-    }
-
-    /**
-     * This private method validates the user input fields for the product.
-     * @return boolean          Returns true or false.
-     * @since                   1.0.0
-     */
-    @FXML
-    private boolean isAddProductInputsValid() {
-        // TODO
-        //  Better validate inputs.
-        String errorMessage = "";
-
-        if (fieldAddProductName.getText() == null || fieldAddProductName.getText().length() == 0) {
-            errorMessage += "Not valid name!\n";
-        }
-        if (fieldAddProductDescription.getText() == null || fieldAddProductDescription.getText().length() == 0) {
-            errorMessage += "Not valid Description!\n";
-        }
-        if (fieldAddProductPrice.getText() == null || fieldAddProductPrice.getText().length() == 0) {
-            errorMessage += "Not valid Price!\n";
-        }
-
-        if (fieldAddProductQuantity.getText() == null || fieldAddProductQuantity.getText().length() == 0) {
-            errorMessage += "Not valid quantity!\n";
-        }
-
-        if (fieldAddProductCategoryId.getValue().toString() == null || fieldAddProductCategoryId.getValue().toString().length() == 0) {
-            errorMessage += "Not valid category id!\n";
-        }
-
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            // Show the error message.
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Fields");
-            alert.setHeaderText("Please correct invalid fields");
-            alert.setContentText(errorMessage);
-
-            alert.showAndWait();
-
-            return false;
-        }
-
-    }
-
-    /**
      * This private method loads the edit product view page.
      * @param product_id        Product id.
      * @since                   1.0.0
@@ -300,8 +207,9 @@ public class ProductsController {
         AnchorPane root = fxmlLoader.getRoot();
         productsContent.getChildren().clear();
         productsContent.getChildren().add(root);
-        fillEditProduct(product_id);
 
+        EditProductController controller = fxmlLoader.getController();
+        controller.fillEditingProductFields(product_id);
 
     }
 
@@ -323,22 +231,120 @@ public class ProductsController {
         productsContent.getChildren().clear();
         productsContent.getChildren().add(root);
 
-        fillEditProduct(product_id);
+        ViewProductController controller = fxmlLoader.getController();
+        controller.fillViewingProductFields(product_id);
+    }
+
+    /**
+     * This private method validates the user input fields for the product.
+     * @return boolean          Returns true or false.
+     * @since                   1.0.0
+     */
+    @FXML
+    boolean areProductInputsValid(String fieldAddProductName, String fieldAddProductDescription, String fieldAddProductPrice, String fieldAddProductQuantity, int productCategoryId) {
+        // TODO
+        //  Better validate inputs.
+        System.out.println("TODO: Better validate inputs.");
+        String errorMessage = "";
+
+        if (productCategoryId == 0) {
+            errorMessage += "Not valid category id!\n";
+        }
+        if (fieldAddProductName == null || fieldAddProductName.length() < 3) {
+            errorMessage += "please enter a valid name!\n";
+        }
+        if (fieldAddProductDescription == null || fieldAddProductDescription.length() < 5) {
+            errorMessage += "Description is not valid!\n";
+        }
+        if (!HelperMethods.validateProductPrice(fieldAddProductPrice)) {
+            errorMessage += "Price is not valid!\n";
+        }
+
+        if (!HelperMethods.validateProductQuantity(fieldAddProductQuantity)) {
+            errorMessage += "Not valid quantity!\n";
+        }
+
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            // Show the error message.
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Fields");
+            alert.setHeaderText("Please correct invalid fields");
+            alert.setContentText(errorMessage);
+
+            alert.showAndWait();
+
+            return false;
+        }
 
     }
 
     /**
-     * This private method gets the single product data from the database and binds them to the view.
-     * @param product_id        Product id.
-     * @since                   1.0.0
+     * This method returns the TextFormatter for validating as double text input fields.
+     * @return TextFormatter
+     * @since               1.0.0
      */
-    @FXML
-    private void fillEditProduct(int product_id) {
-//        ObservableList<Product> fillProductTask = FXCollections.observableArrayList(Datasource.getInstance().getOneProduct(product_id));
-//
-////
-////        System.out.println("pr name:" + fillProductTask.valueProperty().getValue().get(0).getName());
-//        fieldEditProductPrice.setText("hi");
+    public static TextFormatter<Double> formatDoubleField() {
+//        Pattern validEditingState = Pattern.compile("^[0-9]+(|\\.)[0-9]+$");
+        Pattern validEditingState = Pattern.compile("-?(([1-9][0-9]*)|0)?(\\.[0-9]*)?");
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            String text = c.getControlNewText();
+            if (validEditingState.matcher(text).matches()) {
+                return c ;
+            } else {
+                return null ;
+            }
+        };
+        StringConverter<Double> converter = new StringConverter<Double>() {
+            @Override
+            public Double fromString(String s) {
+                if (s.isEmpty() || "-".equals(s) || ".".equals(s) || "-.".equals(s)) {
+                    return 0.0 ;
+                } else {
+                    return Double.valueOf(s);
+                }
+            }
+            @Override
+            public String toString(Double d) {
+                return d.toString();
+            }
+        };
+
+        return new TextFormatter<>(converter, 0.0, filter);
     }
 
+    /**
+     * This method returns the TextFormatter for validating as int text input fields.
+     * @return TextFormatter
+     * @since               1.0.0
+     */
+    public static TextFormatter<Integer> formatIntField() {
+//        Pattern validEditingState = Pattern.compile("-?(0|[1-9]\\d*)");
+        Pattern validEditingState = Pattern.compile("^[0-9]+$");
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            String text = c.getControlNewText();
+            if (validEditingState.matcher(text).matches()) {
+                return c ;
+            } else {
+                return null ;
+            }
+        };
+        StringConverter<Integer> converter = new StringConverter<Integer>() {
+            @Override
+            public Integer fromString(String s) {
+                if (s.isEmpty() || "-".equals(s) || ".".equals(s) || "-.".equals(s)) {
+                    return 0 ;
+                } else {
+                    return Integer.valueOf(s);
+                }
+            }
+            @Override
+            public String toString(Integer d) {
+                return d.toString();
+            }
+        };
+
+        return new TextFormatter<>(converter, 0, filter);
+    }
 }

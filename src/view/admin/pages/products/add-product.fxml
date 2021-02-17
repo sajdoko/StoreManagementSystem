@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.ProductsController">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.products.AddProductController">
     <children>
         <BorderPane layoutX="14.0" layoutY="14.0">
             <center>
@@ -24,32 +22,20 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
-                    <children>
-                        <Label text="Product Name" />
-                        <TextField fx:id="fieldAddProductName" GridPane.columnIndex="1" />
-                        <Label text="Product Price" GridPane.columnIndex="3" />
-                        <TextField fx:id="fieldAddProductPrice" GridPane.columnIndex="4" />
-                        <Label text="Quantity" GridPane.rowIndex="1" />
-                        <TextField fx:id="fieldAddProductQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Category" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="fieldAddProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="1" />
-                                    <String fx:value="2" />
-                                    <String fx:value="3" />
-                                </FXCollections>
-                            </items>
-                            <value>
-                                <String fx:value="1" />
-                            </value>
-                        </ComboBox>
-                        <Label text="Description" GridPane.rowIndex="2" />
-                        <TextArea fx:id="fieldAddProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label text="Product Name" />
+                    <TextField fx:id="fieldAddProductName" promptText="product name" GridPane.columnIndex="1" />
+                    <Label text="Product Price" GridPane.columnIndex="3" />
+                    <TextField fx:id="fieldAddProductPrice" promptText="0.0" GridPane.columnIndex="4" />
+                    <Label text="Product Stock" GridPane.rowIndex="1" />
+                    <TextField fx:id="fieldAddProductQuantity" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label text="Product Category" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="fieldAddProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                    </ComboBox>
+                    <Label text="Description" GridPane.rowIndex="2" />
+                    <TextArea fx:id="fieldAddProductDescription" prefHeight="200.0" prefWidth="522.0" promptText="description here" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product added!" visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" styleClass="button, success" onAction="#btnAddProductOnAction" text="Add Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                    </children>
+                    <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product added!" visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                    <Button mnemonicParsing="false" onAction="#btnAddProductOnAction" styleClass="button, success" text="Add Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
                 </GridPane>
             </center>
             <top>

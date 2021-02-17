@@ -51,7 +51,7 @@
                           </TableColumn>
                           <TableColumn prefWidth="125.0" text="Category">
                               <cellValueFactory>
-                                  <PropertyValueFactory property="category" />
+                                  <PropertyValueFactory property="category_name" />
                               </cellValueFactory>
                           </TableColumn>
                           <TableColumn prefWidth="75.0" text="Nr. Sales">

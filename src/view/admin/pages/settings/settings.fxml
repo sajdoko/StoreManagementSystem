@@ -4,17 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.admin.pages.SettingsController">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.SettingsController">
    <Pane>
-      <Label contentDisplay="CENTER" layoutX="565.0" layoutY="14.0" text="Settings Page" textAlignment="CENTER"
-             wrapText="true">
+      <Label contentDisplay="CENTER" layoutX="119.0" layoutY="14.0" text="Settings Page" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="25.0"/>
+            <Font size="25.0" />
          </font>
       </Label>
 
-      <Text layoutX="560.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" textAlignment="CENTER">
+      <Text layoutX="119.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>

@@ -7,7 +7,7 @@
 <?import javafx.scene.text.*?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.ProductsController">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.products.ProductsController">
     <children>
         <BorderPane layoutX="14.0" layoutY="14.0">
             <center>

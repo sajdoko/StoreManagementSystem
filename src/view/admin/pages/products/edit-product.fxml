@@ -1,62 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.admin.pages.ProductsController">
-    <children>
-        <BorderPane layoutX="14.0" layoutY="14.0">
-            <center>
-                <GridPane fx:id="formEditProductView" alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="712.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="148.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="279.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="140.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="146.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="215.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label text="Product Name" />
-                        <TextField fx:id="fieldEditProductNameEdit" GridPane.columnIndex="1" />
-                        <Label fx:id="fieldEditProductPrice1" text="Product Price" GridPane.columnIndex="3" />
-                        <TextField fx:id="fieldEditProductPrice" GridPane.columnIndex="4" />
-                        <Label text="Quantity" GridPane.rowIndex="1" />
-                        <TextField fx:id="fieldEditProductQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Category" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="fieldEditProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="1" />
-                                    <String fx:value="2" />
-                                    <String fx:value="3" />
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                        <Label text="Description" GridPane.rowIndex="2" />
-                        <TextArea fx:id="fieldEditProductDescription" prefHeight="200.0" prefWidth="522.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.admin.pages.products.EditProductController">
+    <BorderPane layoutX="14.0" layoutY="14.0">
+        <center>
+            <GridPane fx:id="formEditProductView" alignment="CENTER_RIGHT" prefHeight="332.0" prefWidth="712.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.0" minWidth="10.0" prefWidth="148.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="279.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="140.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="146.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="603.0" minWidth="10.0" prefWidth="215.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Label text="Product Name"/>
+                <TextField fx:id="fieldEditProductId" visible="false" GridPane.columnIndex="1"/>
+                <TextField fx:id="fieldEditProductName" promptText="product name" GridPane.columnIndex="1"/>
+                <TextField fx:id="fieldEditProductPrice" promptText="0.0" GridPane.columnIndex="4"/>
+                <Label text="Product Stock" GridPane.rowIndex="1"/>
+                <TextField fx:id="fieldEditProductQuantity" promptText="0" GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+                <Label text="Product Category" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                <ComboBox fx:id="fieldEditProductCategoryId" GridPane.columnIndex="4" GridPane.rowIndex="1"/>
+                <Label text="Description" GridPane.rowIndex="2"/>
+                <TextArea fx:id="fieldEditProductDescription" prefHeight="200.0" prefWidth="522.0"
+                          promptText="product description" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-                        <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product added!" visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" onAction="#btnAddProductOnAction" text="Edit Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-                    </children>
-                </GridPane>
-            </center>
-            <top>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit new product" BorderPane.alignment="CENTER_LEFT">
-                    <font>
-                        <Font size="24.0" />
-                    </font>
-                </Text>
-            </top>
-        </BorderPane>
-    </children>
+                <Text fx:id="viewProductResponse" strokeType="OUTSIDE" strokeWidth="0.0" text="Product updated!"
+                      visible="false" BorderPane.alignment="CENTER_LEFT" GridPane.columnIndex="3"
+                      GridPane.rowIndex="3"/>
+                <Button mnemonicParsing="false" onAction="#btnEditProductOnAction" styleClass="button, primary"
+                        text="Edit Product" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.rowIndex="3"/>
+                <Label layoutX="10.0" layoutY="43.0" text="Product Price" GridPane.columnIndex="3"/>
+            </GridPane>
+        </center>
+        <top>
+            <Text fx:id="viewProductName" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit product"
+                  BorderPane.alignment="CENTER_LEFT">
+                <font>
+                    <Font size="24.0"/>
+                </font>
+            </Text>
+        </top>
+    </BorderPane>
 </AnchorPane>

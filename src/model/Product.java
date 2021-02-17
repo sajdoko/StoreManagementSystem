@@ -7,7 +7,8 @@ public class Product {
     private String description;
     private double price;
     private int quantity;
-    private String category;
+    private int category_id;
+    private String category_name;
     private int nr_sales;
 
     public int getId() {
@@ -50,12 +51,20 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 
     public int getNr_sales() {

@@ -123,12 +123,11 @@ public class Datasource {
             queryProducts.append(" ORDER BY ");
             queryProducts.append(COLUMN_PRODUCTS_NAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryProducts.append("DESC");
+                queryProducts.append(" DESC");
             } else {
-                queryProducts.append("ASC");
+                queryProducts.append(" ASC");
             }
         }
-//        System.out.println(queryProducts.toString());
         try (Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery(queryProducts.toString())) {
 
@@ -140,7 +139,7 @@ public class Datasource {
                 product.setDescription(results.getString(3));
                 product.setPrice(results.getDouble(4));
                 product.setQuantity(results.getInt(5));
-                product.setCategory(results.getString(6));
+                product.setCategory_name(results.getString(6));
                 product.setNr_sales(results.getInt(7));
                 products.add(product);
             }
@@ -173,8 +172,9 @@ public class Datasource {
                 product.setDescription(results.getString(3));
                 product.setPrice(results.getDouble(4));
                 product.setQuantity(results.getInt(5));
-                product.setCategory(results.getString(6));
+                product.setCategory_name(results.getString(6));
                 product.setNr_sales(results.getInt(7));
+                product.setCategory_id(results.getInt(8));
                 products.add(product);
             }
             return products;
@@ -200,9 +200,9 @@ public class Datasource {
             queryProducts.append(" ORDER BY ");
             queryProducts.append(COLUMN_PRODUCTS_NAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryProducts.append("DESC");
+                queryProducts.append(" DESC");
             } else {
-                queryProducts.append("ASC");
+                queryProducts.append(" ASC");
             }
         }
 
@@ -219,7 +219,7 @@ public class Datasource {
                 product.setDescription(results.getString(3));
                 product.setPrice(results.getDouble(4));
                 product.setQuantity(results.getInt(5));
-                product.setCategory(results.getString(6));
+                product.setCategory_name(results.getString(6));
                 product.setNr_sales(results.getInt(7));
                 products.add(product);
             }
@@ -244,7 +244,8 @@ public class Datasource {
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_PRICE + ", " +
                 TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_QUANTITY + ", " +
                 TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_NAME + ", " +
-                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ") AS nr_sales" +
+                " (SELECT COUNT(*) FROM " + TABLE_ORDERS + " WHERE " + TABLE_ORDERS + "." + COLUMN_ORDERS_PRODUCT_ID + " = " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_ID + ") AS nr_sales" + ", " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID +
                 " FROM " + TABLE_PRODUCTS +
                 " LEFT JOIN " + TABLE_CATEGORIES +
                 " ON " + TABLE_PRODUCTS + "." + COLUMN_PRODUCTS_CATEGORY_ID +
@@ -274,7 +275,7 @@ public class Datasource {
 
     /**
      * This method insert one product to the database.
-     * @param name          Product id.
+     * @param name          Product name.
      * @param description   Product description.
      * @param price         Product price.
      * @param quantity      Product quantity.
@@ -282,7 +283,7 @@ public class Datasource {
      * @return boolean      Returns true or false.
      * @since                   1.0.0
      */
-    public boolean insertNewProduct(String name, String description, int price, int quantity, int category_id) {
+    public boolean insertNewProduct(String name, String description, double price, int quantity, int category_id) {
 
         String sql = "INSERT INTO " + TABLE_PRODUCTS + " ("
                 + COLUMN_PRODUCTS_NAME + ", "
@@ -295,9 +296,46 @@ public class Datasource {
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, description);
-            statement.setInt(3, price);
+            statement.setDouble(3, price);
             statement.setInt(4, quantity);
             statement.setInt(5, category_id);
+
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * This method updates one product to the database.
+     * @param product_id    Product id.
+     * @param name          Product name.
+     * @param description   Product description.
+     * @param price         Product price.
+     * @param quantity      Product quantity.
+     * @param category_id   Product category_id.
+     * @return boolean      Returns true or false.
+     * @since                   1.0.0
+     */
+    public boolean updateOneProduct(int product_id, String name, String description, double price, int quantity, int category_id) {
+
+        String sql = "UPDATE " + TABLE_PRODUCTS + " SET "
+                + COLUMN_PRODUCTS_NAME + " = ?" + ", "
+                + COLUMN_PRODUCTS_DESCRIPTION + " = ?" + ", "
+                + COLUMN_PRODUCTS_PRICE + " = ?" + ", "
+                + COLUMN_PRODUCTS_QUANTITY + " = ?" + ", "
+                + COLUMN_PRODUCTS_CATEGORY_ID + " = ?" +
+                " WHERE " + COLUMN_PRODUCTS_ID + " = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setDouble(3, price);
+            statement.setInt(4, quantity);
+            statement.setInt(5, category_id);
+            statement.setInt(6, product_id);
 
             statement.executeUpdate();
             return true;
@@ -325,6 +363,51 @@ public class Datasource {
     }
     // END PRODUCTS QUERIES
 
+    // BEGIN CATEGORIES QUERIES
+
+    /**
+     * This method gets all the product categories from the database.
+     * @param sortOrder     Results sort order.
+     * @return List         Returns Categories array list.
+     * @since                   1.0.0
+     */
+    public List<Categories> getProductCategories(int sortOrder) {
+        StringBuilder queryCategories = new StringBuilder("SELECT " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_ID + ", " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_NAME + ", " +
+                TABLE_CATEGORIES + "." + COLUMN_CATEGORIES_DESCRIPTION +
+                " FROM " + TABLE_CATEGORIES
+        );
+
+        if (sortOrder != ORDER_BY_NONE) {
+            queryCategories.append(" ORDER BY ");
+            queryCategories.append(COLUMN_CATEGORIES_ID);
+            if (sortOrder == ORDER_BY_DESC) {
+                queryCategories.append(" DESC");
+            } else {
+                queryCategories.append(" ASC");
+            }
+        }
+
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(queryCategories.toString())) {
+
+            List<Categories> categories = new ArrayList<>();
+            while (results.next()) {
+                Categories category = new Categories();
+                category.setId(results.getInt(1));
+                category.setName(results.getString(2));
+                categories.add(category);
+            }
+            return categories;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+    // END CATEGORIES QUERIES
+
     // BEGIN CUSTOMERS QUERIES
     /**
      * This method get all the customers from the database.
@@ -340,9 +423,9 @@ public class Datasource {
             queryCustomers.append(" ORDER BY ");
             queryCustomers.append(COLUMN_USERS_FULLNAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryCustomers.append("DESC");
+                queryCustomers.append(" DESC");
             } else {
-                queryCustomers.append("ASC");
+                queryCustomers.append(" ASC");
             }
         }
         try (Statement statement = conn.createStatement();
@@ -416,9 +499,9 @@ public class Datasource {
             queryCustomers.append(" ORDER BY ");
             queryCustomers.append(COLUMN_USERS_FULLNAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryCustomers.append("DESC");
+                queryCustomers.append(" DESC");
             } else {
-                queryCustomers.append("ASC");
+                queryCustomers.append(" ASC");
             }
         }
 
@@ -476,8 +559,21 @@ public class Datasource {
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, customerId);
             int rows = statement.executeUpdate();
-            System.out.println(rows + " record(s) deleted.");
-            return true;
+            System.out.println(rows + " " + TABLE_USERS + " record(s) deleted.");
+
+
+            String sql2 = "DELETE FROM " + TABLE_ORDERS + " WHERE " + COLUMN_ORDERS_USER_ID + " = ?";
+
+            try (PreparedStatement statement2 = conn.prepareStatement(sql2)) {
+                statement2.setInt(1, customerId);
+                int rows2 = statement2.executeUpdate();
+                System.out.println(rows2 + " " + TABLE_ORDERS + " record(s) deleted.");
+                return true;
+            } catch (SQLException e) {
+                System.out.println("Query failed: " + e.getMessage());
+                return false;
+            }
+
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
             return false;
@@ -619,9 +715,9 @@ public class Datasource {
             queryOrders.append(" ORDER BY ");
             queryOrders.append(COLUMN_USERS_FULLNAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryOrders.append("DESC");
+                queryOrders.append(" DESC");
             } else {
-                queryOrders.append("ASC");
+                queryOrders.append(" ASC");
             }
         }
 
@@ -684,9 +780,9 @@ public class Datasource {
             queryOrders.append(" ORDER BY ");
             queryOrders.append(COLUMN_USERS_FULLNAME);
             if (sortOrder == ORDER_BY_DESC) {
-                queryOrders.append("DESC");
+                queryOrders.append(" DESC");
             } else {
-                queryOrders.append("ASC");
+                queryOrders.append(" ASC");
             }
         }
 
@@ -773,11 +869,6 @@ public class Datasource {
      */
     public Integer countAllCustomers() {
         try (Statement statement = conn.createStatement();
-//             ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_ORDERS +
-//                     " LEFT JOIN " + TABLE_USERS +
-//                     " ON " + TABLE_ORDERS + "." + COLUMN_ORDERS_ID +
-//                     " = " + TABLE_USERS + "." + COLUMN_USERS_ID
-//             )
              ResultSet results = statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_USERS +
                  " WHERE " + COLUMN_USERS_ADMIN + "= 0"
         )

@@ -40,5 +40,6 @@ public class UserOrdersController {
     public void btnOrdersSearchOnAction(ActionEvent actionEvent) {
         // TODO
         //  Add orders search functionality.
+        System.out.println("TODO: Add orders search functionality.");
     }
 }

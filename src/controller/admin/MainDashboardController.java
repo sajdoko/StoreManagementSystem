@@ -4,7 +4,7 @@ import controller.UserSessionController;
 import controller.admin.pages.CustomersController;
 import controller.admin.pages.HomeController;
 import controller.admin.pages.OrdersController;
-import controller.admin.pages.ProductsController;
+import controller.admin.pages.products.ProductsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

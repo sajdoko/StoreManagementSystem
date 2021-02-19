@@ -14,14 +14,15 @@ import java.util.List;
  *
  * @author      Sajmir Doko
  */
-public class Datasource {
+public class Datasource extends Product {
 
     public static final String DB_NAME = "store_manager.sqlite";
 
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:src\\app\\db\\" + DB_NAME;
 
     // All the database tables and their columns are stored as String variables.
-    // This to facilitate later changing of table/columns names, if needed.
+    // This to facilitate later changing of table/columns names, if needed, for example when expanding
+    // the Datasource Class.
     public static final String TABLE_PRODUCTS = "products";
     public static final String COLUMN_PRODUCTS_ID = "id";
     public static final String COLUMN_PRODUCTS_NAME = "name";

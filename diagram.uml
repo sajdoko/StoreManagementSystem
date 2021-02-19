@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="1519.897905519795">controller.RegisterController</node>
+    <node x="774.0" y="793.8979055197949">model.Customer</node>
+    <node x="341.0" y="1519.897905519795">controller.user.pages.UserOrdersController</node>
+    <node x="1533.0" y="1519.897905519795">controller.admin.pages.SettingsController</node>
+    <node x="598.0" y="1310.897905519795">app.utils.PasswordUtils</node>
+    <node x="1.9634792091709414" y="672.8979055197949">controller.admin.pages.products.AddProductController</node>
+    <node x="493.0" y="793.8979055197949">controller.UserSessionController</node>
+    <node x="0.0" y="793.8979055197949">model.Order</node>
+    <node x="1232.0" y="1310.897905519795">app.Main</node>
+    <node x="1618.0" y="793.8979055197949">model.Categories</node>
+    <node x="1310.0" y="793.8979055197949">app.utils.HelperMethods</node>
+    <node x="0.0" y="0.0">controller.admin.pages.products.ViewProductController</node>
+    <node x="115.87441277110122" y="262.22927938248415">controller.admin.pages.products.ProductsController</node>
+    <node x="266.0" y="793.8979055197949">model.User</node>
+    <node x="854.2594472723092" y="0.0">model.Datasource</node>
+    <node x="953.0" y="1310.897905519795">controller.user.pages.UserProductsController</node>
+    <node x="1273.0" y="1519.897905519795">controller.admin.pages.HomeController</node>
+    <node x="1570.3689179412409" y="121.5">model.Product</node>
+    <node x="672.0" y="1519.897905519795">controller.admin.pages.OrdersController</node>
+    <node x="1001.0" y="793.8979055197949">controller.admin.MainDashboardController</node>
+    <node x="0.0" y="1310.897905519795">controller.user.UserMainDashboardController</node>
+    <node x="309.0" y="1310.897905519795">controller.admin.pages.CustomersController</node>
+    <node x="1426.0" y="1310.897905519795">controller.LoginController</node>
+    <node x="1003.0" y="1519.897905519795">controller.user.pages.UserHomeController</node>
+    <node x="590.2594472723092" y="332.8291153886418">controller.admin.pages.products.EditProductController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="controller.admin.pages.products.AddProductController" target="controller.admin.pages.products.ProductsController">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.admin.pages.products.EditProductController" target="controller.admin.pages.products.ProductsController">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="controller.admin.pages.products.ViewProductController" target="controller.admin.pages.products.ProductsController">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="model.Datasource" target="model.Product">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Balloon" zoom="0.5347185493010955" x="1239.5000000000002" y="770.4732231171402" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

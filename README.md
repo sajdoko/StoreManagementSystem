@@ -27,3 +27,7 @@ Some of the application features are:`
 | -------- | -------------- |
 | sajdoko | 1 |
 | testuser | 123456 |
+
+<!-- Screenshots -->
+![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManager/main/screenshots/4.admin-products.png?token=ACDTDGFEUY5BEIVNHNBZR5TAGASZS)
+![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManager/main/screenshots/8.customer-products.png?token=ACDTDGGCSLMOLIFLLNNXNW3AGAS4S)

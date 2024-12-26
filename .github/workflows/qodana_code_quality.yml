@@ -17,3 +17,4 @@ jobs:
         uses: JetBrains/qodana-action@v2024.1
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
+          QODANA_ENDPOINT: 'https://qodana.cloud'

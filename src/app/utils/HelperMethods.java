@@ -1,10 +1,6 @@
 package app.utils;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextFormatter;
-import javafx.util.StringConverter;
-
-import java.util.function.UnaryOperator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

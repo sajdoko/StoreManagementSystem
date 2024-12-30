@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="byte-buddy-agent-1.15.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/byte-buddy-agent-1.15.11.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/byte-buddy-1.15.11.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

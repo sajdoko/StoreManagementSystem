@@ -28,13 +28,10 @@ class DatasourceTest {
 
     @BeforeEach
     void setUp() throws SQLException {
-        // Open mocks for the annotations
         MockitoAnnotations.openMocks(this);
 
-        // Create the Datasource instance and inject the mocked Connection
         datasource = new Datasource(conn);
 
-        // Mock the database interactions
         when(conn.prepareStatement(anyString())).thenReturn(preparedStatement);
         when(preparedStatement.executeQuery()).thenReturn(resultSet);
     }
@@ -45,8 +42,7 @@ class DatasourceTest {
         String searchString = "Product";
         int sortOrder = Datasource.ORDER_BY_NONE;
 
-        // Mock the ResultSet behavior
-        when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
         when(resultSet.getInt(1)).thenReturn(1);
         when(resultSet.getString(2)).thenReturn("Product1");
         when(resultSet.getString(3)).thenReturn("Description1");
@@ -55,10 +51,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category1");
         when(resultSet.getInt(7)).thenReturn(5);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product1", products.get(0).getName());
@@ -70,8 +64,7 @@ class DatasourceTest {
         String searchString = "";
         int sortOrder = Datasource.ORDER_BY_NONE;
 
-        // Mock the ResultSet behavior
-        when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
         when(resultSet.getInt(1)).thenReturn(1);
         when(resultSet.getString(2)).thenReturn("Product1");
         when(resultSet.getString(3)).thenReturn("Description1");
@@ -80,10 +73,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category1");
         when(resultSet.getInt(7)).thenReturn(5);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product1", products.get(0).getName());
@@ -95,8 +86,7 @@ class DatasourceTest {
         String searchString = "%$#";
         int sortOrder = Datasource.ORDER_BY_ASC;
 
-        // Mock the ResultSet behavior
-        when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
         when(resultSet.getInt(1)).thenReturn(2);
         when(resultSet.getString(2)).thenReturn("Product2");
         when(resultSet.getString(3)).thenReturn("Description2");
@@ -105,10 +95,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category2");
         when(resultSet.getInt(7)).thenReturn(10);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product2", products.get(0).getName());
@@ -120,13 +108,10 @@ class DatasourceTest {
         String searchString = "Product";
         int sortOrder = Datasource.ORDER_BY_ASC;
 
-        // Simulate SQLException while preparing the statement
         when(conn.prepareStatement(anyString())).thenThrow(new SQLException("Database error"));
 
-        // Perform the search, expect null due to exception
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is null due to SQLException
         assertNull(products);
     }
 
@@ -136,8 +121,7 @@ class DatasourceTest {
         String searchString = "Product";
         int sortOrder = Datasource.ORDER_BY_NONE;
 
-        // Mock the ResultSet behavior
-        when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
         when(resultSet.getInt(1)).thenReturn(3);
         when(resultSet.getString(2)).thenReturn("Product3");
         when(resultSet.getString(3)).thenReturn("Description3");
@@ -146,10 +130,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category3");
         when(resultSet.getInt(7)).thenReturn(15);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product3", products.get(0).getName());
@@ -161,8 +143,7 @@ class DatasourceTest {
         String searchString = "Product";
         int sortOrder = Datasource.ORDER_BY_ASC;
 
-        // Mock the ResultSet behavior
-        when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
+        when(resultSet.next()).thenReturn(true).thenReturn(false);
         when(resultSet.getInt(1)).thenReturn(4);
         when(resultSet.getString(2)).thenReturn("Product4");
         when(resultSet.getString(3)).thenReturn("Description4");
@@ -171,10 +152,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category4");
         when(resultSet.getInt(7)).thenReturn(20);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product4", products.get(0).getName());
@@ -186,7 +165,6 @@ class DatasourceTest {
         String searchString = "Product";
         int sortOrder = Datasource.ORDER_BY_DESC;
 
-        // Mock the ResultSet behavior
         when(resultSet.next()).thenReturn(true).thenReturn(false); // Simulate one result
         when(resultSet.getInt(1)).thenReturn(5);
         when(resultSet.getString(2)).thenReturn("Product5");
@@ -196,10 +174,8 @@ class DatasourceTest {
         when(resultSet.getString(6)).thenReturn("Category5");
         when(resultSet.getInt(7)).thenReturn(25);
 
-        // Perform the search
         List<Product> products = datasource.searchProducts(searchString, sortOrder);
 
-        // Assert that the result is not null and contains the expected product
         assertNotNull(products);
         assertEquals(1, products.size());
         assertEquals("Product5", products.get(0).getName());

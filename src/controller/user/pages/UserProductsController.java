@@ -28,7 +28,7 @@ public class UserProductsController {
     public TextField fieldProductsSearch;
 
     @FXML
-    private TableView<Product> tableProductsPage;
+    public TableView<Product> tableProductsPage;
 
     /**
      * This method lists all the product to the view table.
@@ -56,7 +56,7 @@ public class UserProductsController {
      * @since                   1.0.0
      */
     @FXML
-    private void addActionButtonsToTable() {
+    public void addActionButtonsToTable() {
         TableColumn colBtnBuy = new TableColumn("Actions");
 
         Callback<TableColumn<Product, Void>, TableCell<Product, Void>> cellFactory = new Callback<TableColumn<Product, Void>, TableCell<Product, Void>>() {

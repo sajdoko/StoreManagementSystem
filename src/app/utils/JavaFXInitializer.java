@@ -33,3 +33,4 @@ public class JavaFXInitializer extends Application {
         }
     }
 }
+

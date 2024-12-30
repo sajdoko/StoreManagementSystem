@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mockito-inline-5.2.0">
+    <CLASSES />
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../mockito-inline-5.2.0.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

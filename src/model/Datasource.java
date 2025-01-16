@@ -57,7 +57,7 @@ public class Datasource extends Product {
     public static final int ORDER_BY_ASC = 2;
     public static final int ORDER_BY_DESC = 3;
 
-    private Connection conn;
+    public Connection conn;
 
     /**
      * Create an object of Datasource
@@ -501,7 +501,8 @@ public class Datasource extends Product {
             queryCustomers.append(COLUMN_USERS_FULLNAME);
             if (sortOrder == ORDER_BY_DESC) {
                 queryCustomers.append(" DESC");
-            } else {
+            }
+            else {
                 queryCustomers.append(" ASC");
             }
         }

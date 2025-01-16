@@ -9,6 +9,18 @@ public class Customer {
     private int orders;
     private String status;
 
+    public Customer(int id, String fullname, String email, String username, int orders, String status) {
+        this.id = id;
+        this.fullname = fullname;
+        this.email = email;
+        this.username = username;
+        this.orders = orders;
+        this.status = status;
+    }
+
+    public Customer() {
+    }
+
     public int getId() {
         return id;
     }

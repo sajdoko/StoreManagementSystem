@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="apiguardian-api-1.1.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../lib/apiguardian-api-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/byte-buddy-1.11.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/byte-buddy-agent-1.11.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/hsqldb-2.6.0-jdk8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-jupiter-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-jupiter-api-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-jupiter-engine-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-jupiter-params-5.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-platform-commons-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/junit-platform-engine-1.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/mockito-core-3.12.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/objenesis-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../lib/opentest4j-1.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

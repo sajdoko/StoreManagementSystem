@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="testfx-core-4.0.16-alpha">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../testfx-core-4.0.16-alpha.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../testfx-junit5-4.0.16-alpha.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../hamcrest-library-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../javafx-base-16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../javafx-controls-16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../javafx-graphics-16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -49,6 +49,16 @@ public class Main extends Application {
         super.stop();
         Datasource.getInstance().close();
     }
+    public static void launchTest() {
+        new Thread(() -> {
+            try {
+                Application.launch();
+            } catch (IllegalStateException ex) {
+                if (!ex.getMessage().startsWith("Application launch must not be called more than once"))
+                    throw ex;
+            }
+        }).start();
+    }
 
     /**
      * {@inheritDoc}

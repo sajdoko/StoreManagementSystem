@@ -59,15 +59,22 @@ public class Datasource extends Product {
 
     public Connection conn;
 
-    /**
-     * Create an object of Datasource
-     */
-    private static final Datasource instance = new Datasource();
+    // Static singleton instance
+    private static Datasource instance;
 
-    /**
-     * Make the constructor private so that this class cannot be instantiated
-     */
-    private Datasource() { }
+    // Private constructor, used by Singleton pattern
+    private Datasource() {
+
+    }
+
+    // Constructor for testing purposes, allows mock injection
+    public Datasource(Connection conn) {
+        this.conn = conn;
+    }
+
+    public static void setInstance(Datasource mockInstance) {
+        instance = mockInstance;
+    }
 
     /**
      * Get the only object available

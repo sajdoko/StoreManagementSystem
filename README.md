@@ -68,7 +68,7 @@ Use the following credentials to access the system:
 
 <!-- Screenshots -->
 ### Store Administrator View
-![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManager/main/screenshots/4.admin-products.png?token=ACDTDGFEUY5BEIVNHNBZR5TAGASZS)
+![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManagementSystem/refs/heads/main/screenshots/4.admin-products.png)
 
 ### Client View
-![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManager/main/screenshots/8.customer-products.png?token=ACDTDGGCSLMOLIFLLNNXNW3AGAS4S)
+![App Screenshot](https://raw.githubusercontent.com/sajdoko/StoreManagementSystem/refs/heads/main/screenshots/8.customer-products.png)
